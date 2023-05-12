@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Filieres page</title>
+    <!-- <script>
+        function moduleRedirect(event){
+            const name = event.target.dataset.name
+            location.href = `/modules/${name}`
+        }
+
+    </script> -->
+    <!-- <style>
+        .filiere_container{
+            display: flex;
+            flex-direction: row;
+        }
+        .filiere{
+            border: 1px solid black;
+            font-size: 1rem;
+            font-family: 'Courier New', Courier, monospace;
+            padding: 1rem;
+            margin-right: 3rem;
+        }
+
+        button{
+            margin-top: 3rem;
+        }
+    </style> -->
+</head>
+<body>
+    <%- include('./sideBar') %>
+    <!-- <h1>Filieres</h1>
+        <div class="filiere_container">
+            <% filieres.forEach(filiere => { %>
+                <div class="filiere" data-name="<%= filiere.name %>" onclick="moduleRedirect(event)">
+                    <%= filiere.name %>
+                </div>
+            <% }); %>
+        </div> -->
+</body>
+</html>

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>sideBar</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;600&display=swap" rel="stylesheet">
+    <script>
+        function myFunction(event) {
+            const liElement = event.target;
+
+            if (liElement.getAttribute('name') === 'first') {
+                location.href = '/adminDashboard';
+            } else if (liElement.getAttribute('name') === 'second') {
+                location.href = '/filieres';
+            } else if (liElement.getAttribute('name') === 'third') {
+                location.href = '/modules';
+            } else if (liElement.getAttribute('name') === 'fourth') {
+                location.href = '/cours';
+            } else {
+                location.href = '/Parameters';
+            }
+            } 
+    </script>
+    <style>
+        body{
+            font-family: 'Poppins' ;
+        }
+        h1, h5{
+            font-family: 'Poppins' ;
+        }
+        ul {
+          list-style-type: none;
+          margin: 0;
+          padding: 0;
+        }
+        .sideBar{
+            position: fixed;
+            background: rgb(13, 13, 53);
+            width: 200px;
+            padding: 20px;
+            left: 0;
+            top: 0;
+            bottom: 0;
+        }
+        h5{
+            margin-bottom: 10px;
+            color: aqua;
+            font-size: 12px;
+        }
+        li {
+            margin-bottom: 10px;
+            cursor: pointer;
+            color: white;
+        }
+
+        li:hover {
+            color: #fff;
+            background-color: #537299;
+        }
+        .hello, .avancement{
+            width: calc(100% - 200px);
+            padding: 20px;
+            margin-left: 250px;
+        }
+        .avancement{
+            margin-top: 100px;
+        }
+    </style>
+</head>
+<body>
+    <div class="sideBar">
+        <h5>Bienvenue</h5>
+        <ul onclick="myFunction(event)">
+            <li name="first">Dashboard</li>
+            <li name="second">Filières</li>
+            <li name="third">Modules</li>
+            <li name="fourth">Cours</li>
+            <li name="fifth">Manage</li>
+        </ul>
+    </div>
+    
+</body>
+</html>

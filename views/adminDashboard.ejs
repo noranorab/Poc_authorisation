@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <style>
+        body{
+            font-family: 'Poppins' ;
+        }
+        h1, h5{
+            font-family: 'Poppins' ;
+        }
+        h5{
+            margin-bottom: 10px;
+            color: aqua;
+            font-size: 12px;
+        }
+        .hello, .avancement{
+            width: calc(100% - 200px);
+            padding: 20px;
+            margin-left: 250px;
+        }
+        .avancement{
+            margin-top: 100px;
+        }
+    </style>
+</head>
+<body>
+    <%- include('./sideBar') %>
+    <div class="hello">
+        <h1>Hello</h1>
+    </div>
+    <div class="avancement">
+        <h5>Avancements des cours</h5>
+    </div>
+
+</body>
+</html>
