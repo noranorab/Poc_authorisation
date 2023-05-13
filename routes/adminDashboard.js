@@ -1,10 +1,16 @@
 const express = require('express')
 const router = express.Router()
+const {users} = require('../data')
+const anneeUniversitaire = require('../views/js/anneeUniversitaire')
 
 
 
 router.get('/',(req, res)=> {
-    res.render('adminDashboard')
+    console.log('hello form dashboard')
+    const user = users.find((user) => user.username == req.session.name);
+    anneeUniversitaire.lancerAnneeUniversitaire('2022/2023', '1')
+    const currentSchoolYear = anneeUniversitaire.obtenirAnneeUniversitaire();
+    res.render('adminDashboard', {user, currentSchoolYear})
 })
 
 

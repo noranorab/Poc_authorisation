@@ -2,6 +2,7 @@ const { closeDelimiter } = require('ejs')
 const express = require('express')
 const router = express.Router()
 const {users, ROLE}= require('../data')
+const anneeUniversitaire = require('../views/js/anneeUniversitaire')
 
 
 // function getUser(req, res, next){
@@ -27,7 +28,10 @@ router.post('/', async (req, res) => {
             if (validPx){
                 req.session.name = user.username
                 if(user.role == ROLE.ADMIN){
-                    return res.render('adminDashboard')
+                    anneeUniversitaire.lancerAnneeUniversitaire()
+                    const currentSchoolYear = anneeUniversitaire.obtenirAnneeUniversitaire();
+                    return res.render('adminDashboard', {user, currentSchoolYear})
+
                 }else if(user.role == ROLE.CF){
                     res.render({data : 'this is cf page'})
                 }else{

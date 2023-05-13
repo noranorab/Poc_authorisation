@@ -29,12 +29,58 @@
 </head>
 <body>
     <%- include('./sideBar') %>
-    <div class="hello">
-        <h1>Hello</h1>
-    </div>
-    <div class="avancement">
-        <h5>Avancements des cours</h5>
-    </div>
+    <% if (user){ %>
+        <div class="hello">
+            <h1>Hello <%= user.username %> </h1>
+            <h2>Semester <%= currentSchoolYear.semester %>, <%= currentSchoolYear.year %></h2>
+        </div>
+        <div class="avancement">
+            <h5>Avancements des cours</h5>
+            <form onsubmit="launchSchoolYear(event)">
+                <label for="year">Year:</label>
+                <input type="text" id="year" name="year" value="2022/2023" />
+                <label for="semester">Semester:</label>
+                <input type="text" id="semester" name="semester" value="1" />
+                <input type="submit" value="Launch a New School Year" />
+            </form>
+            <script>
+                // Assuming you're using a client-side framework like React, Vue.js, or plain JavaScript
+        
+                    function launchSchoolYear(event) {
+                        event.preventDefault(); // Prevent the default form submission behavior
+                
+                        const yearInput = document.getElementById('year');
+                        console.log(yearInput)
+                        const semesterInput = document.getElementById('semester');
+                
+                        const year = yearInput.value;
+                        const semester = semesterInput.value;
+                
+                        // Perform an HTTP POST request to the server to launch the new school year
+                        fetch('/lancer-annee', {
+                            method: 'POST',
+                            headers: {
+                            'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify({ year: year, semester: semester }),
+                        })
+                            .then(response => response.text())
+                            .then(message => {
+                            console.log(message); // Display the response from the server
+                            // Optionally, update the UI or show a success message to the user
+                            })
+                            .catch(error => {
+                            console.error(error);
+                            // Optionally, show an error message to the user
+                            });
+                    }
+                
+            </script>
+        </div>
+    <% }else{ %>
+        <% console.log("page not found") %>
+    <% } %>
+    
 
 </body>
 </html>
