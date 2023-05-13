@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -23,21 +24,25 @@
             } else {
                 location.href = '/Parameters';
             }
-            } 
+        }
     </script>
     <style>
-        body{
-            font-family: 'Poppins' ;
+        body {
+            font-family: 'Poppins';
         }
-        h1, h5{
-            font-family: 'Poppins' ;
+        
+        h1,
+        h5 {
+            font-family: 'Poppins';
         }
+        
         ul {
-          list-style-type: none;
-          margin: 0;
-          padding: 0;
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
         }
-        .sideBar{
+        
+        .sideBar {
             position: fixed;
             background: rgb(13, 13, 53);
             width: 200px;
@@ -46,42 +51,49 @@
             top: 0;
             bottom: 0;
         }
-        h5{
+        
+        h5 {
             margin-bottom: 10px;
             color: aqua;
             font-size: 12px;
         }
+        
         li {
             margin-bottom: 10px;
             cursor: pointer;
             color: white;
         }
-
+        
         li:hover {
             color: #fff;
             background-color: #537299;
         }
-        .hello, .avancement{
+        
+        .hello,
+        .avancement {
             width: calc(100% - 200px);
             padding: 20px;
             margin-left: 250px;
         }
-        .avancement{
+        
+        .avancement {
             margin-top: 100px;
         }
     </style>
 </head>
+
 <body>
     <div class="sideBar">
         <h5>Bienvenue</h5>
         <ul onclick="myFunction(event)">
             <li name="first">Dashboard</li>
             <li name="second">Filières</li>
-            <li name="third">Modules</li>
-            <li name="fourth">Cours</li>
+            <li name="third">Gestion des filiere</li>
+
             <li name="fifth">Manage</li>
         </ul>
     </div>
-    
+
 </body>
+
 </html>

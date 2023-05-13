@@ -1,40 +1,198 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Modules</title>
-    <script>
-        function modulesRedirect(event){
-            const name = event.target.dataset.name
-            location.href = `/cours/${name}`
-        }
-    </script>
+    <title>Gestion des filières</title>
     <style>
-        .module_container{
-            display: flex;
-            flex-direction: row;
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
         }
-        .module{
-            border: 1px solid black;
-            font-size: 1rem;
-            font-family: 'Courier New', Courier, monospace;
-            padding: 1rem;
-            margin-right: 3rem;
+        
+        h1 {
+            text-align: center;
+        }
+        
+        h2 {
+            margin-top: 40px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        
+        th,
+        td {
+            padding: 10px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        
+        th {
+            background-color: #f2f2f2;
+        }
+        
+        .filiere-heading {
+            font-weight: bold;
+            font-size: 18px;
+            text-align: center;
+            background-color: #f2f2f2;
+        }
+        
+        .module-name {
+            font-weight: bold;
+        }
+        
+        .module-actions button {
+            padding: 5px 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .module-actions button:hover {
+            background-color: #45a049;
+        }
+        
+        .container {
+            margin-left: 300px
         }
     </style>
 </head>
+
 <body>
     <%- include('./sideBar') %>
-    <h1>Modules</h1>
-    <div class="module_container">
-        <% modules.forEach(module => { %>
-            <div class="module" data-name="<%= module.name %>"  onclick="modulesRedirect(event)">
-                <%= module.name %>
-            </div>
-        <% }); %>
-    </div>
-    
+        <h1>Gestion des filières</h1>
+        <div class="container">
+            <table>
+                <tbody>
+                    <tr>
+                        <td colspan="3" class="filiere-heading">ASEDS</td>
+                    </tr>
+                    <tr>
+                        <th>Semestre</th>
+                        <th>Module</th>
+                        <th>Matiere</th>
+                    </tr>
+                    <tr>
+                        <td rowspan="4">Semestre 1
+                            <div>
+                                <button style=" background-color: #00ffa6;" onclick=" ajouterModule(event) ">Ajouter Module</button>
+                                <script>
+                                    function ajouterModule(event) {
+                                        location.href = '/addModule'
+                                    }
+                                </script>
+                            </div>
+                        </td>
+                        <td class="module-name " rowspan="2 ">Module 1: Programmation et Développement Web
+                            <div>
+                                <button>Ajouter  matiere</button>
+                                <button>Modifier</button>
+                                <button>Supprimer</button>
+                            </div>
+                        </td>
+                        <td>Matiere 1
+                            <div>
+                                <button>Modifier</button>
+                                <button>Supprimer</button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Matiere 2
+                            <div>
+                                <button>Modifier</button>
+                                <button>Supprimer</button>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="module-name " rowspan="2 ">Module 2:statistique et RO
+                            <div>
+                                <button>Ajouter une matiere</button>
+                                <button>Modifier</button>
+                                <button>Supprimer</button>
+                            </div>
+                        </td>
+                        <td>Matiere 1
+                            <div>
+
+                                <button>Modifier</button>
+                                <button>Supprimer</button>
+
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Matiere 2
+                            <div>
+                                <button>Modifier</button>
+                                <button>Supprimer</button>
+
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td rowspan="2 ">S2</td>
+                        <td class="module-name ">Module 1</td>
+                        <td class="module-actions ">
+
+                            <button onclick="modifierMatiere( 'ASEDS', 1, 2) ">Modifier</button>
+                            <button onclick="supprimerMatiere( 'ASEDS', 1, 2) ">Supprimer</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="module-name ">Module 2</td>
+                        <td class="module-actions ">
+                            <button onclick="modifierMatiere( 'ASEDS', 2, 2) ">Modifier</button>
+                            <button onclick="supprimerMatiere( 'ASEDS', 2, 2) ">Supprimer</button>
+                        </td>
+                    </tr>
+                    <tr>
+
+
+                    </tr>
+                    <tr>
+                        <td colspan="3 " class="filiere-heading ">ICCN</td>
+                    </tr>
+                    <tr>
+                        <th>Semestre</th>
+                        <th>Module</th>
+                        <th>Actions</th>
+                    </tr>
+                    <tr>
+                        <!-- Ajoutez ici les modules et les matières pour ICCN -->
+                    </tr>
+                    <tr>
+                        <td colspan="3 ">
+                            <button class="add-button " onclick="ajouterModule( 'ICCN') ">Ajouter un module</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="3 " class="filiere-heading ">DATA</td>
+                    </tr>
+                    <tr>
+                        <th>Semestre</th>
+                        <th>Module</th>
+                        <th>Actions</th>
+                    </tr>
+                    <tr>
+                        <!-- Ajoutez ici les modules et les matières pour DATA -->
+                    </tr>
+                    <tr>
+                        <td colspan="3 ">
+                            <button class="add-button " onclick="ajouterModule( 'DATA') ">Ajouter un module</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
 </body>
+
+</html>
+
 </html>

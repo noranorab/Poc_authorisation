@@ -3,18 +3,20 @@ const app = express();
 const PORT = 6969;
 
 const session = require('express-session')
-const {filieres} = require('./data')
+const { filieres } = require('./data')
 const pgSessionStore = require('./model/db')
 
 const bodyParser = require('body-parser');
 const path = require('path');
 
-const connRoute = require('./routes/Connexion')
-const homeRoute = require('./routes/Home')
+// const connRoute = require('./routes/Connexion')
+// const homeRoute = require('./routes/Home')
 const moduleRoute = require('./routes/Modules')
 const coursRoute = require('./routes/Cours')
 const filiereRoute = require('./routes/Filieres')
 const adminRoute = require('./routes/adminDashboard')
+const matiereRoute = require('./routes/addMatiere')
+const gestionRoute = require('./routes/addModule')
 
 app.set('view engine', 'ejs');
 
@@ -23,47 +25,51 @@ app.use(bodyParser.json());
 
 
 
-const mySession = {
-    name: 'sid',
-    resave: false,
-    saveUninitialized: false,
-    secret:  'hello',
-    cookie: {
-        maxAge : 1000*60*60*24*7,
-        secure: false,
-    },
-    store: pgSessionStore,
-}
-app.use(session(
-    mySession
-))
+// const mySession = {
+//         name: 'sid',
+//         resave: false,
+//         saveUninitialized: false,
+//         secret: 'hello',
+//         cookie: {
+//             maxAge: 1000 * 60 * 60 * 24 * 7,
+//             secure: false,
+//         },
+//         store: pgSessionStore,
+//     }
+// app.use(session(
+//     mySession
+// ))
 
 // app.use(setUser)
-app.use('/connexion', connRoute)
-app.use('/home', homeRoute)
+// app.use('/connexion', connRoute)
+// app.use('/home', homeRoute)
 app.use('/modules', moduleRoute)
 app.use('/cours', coursRoute)
 app.use('/filieres', filiereRoute)
 app.use('/adminDashboard', adminRoute)
+app.use('/addMatiere', matiereRoute)
+app.use('/addModule', gestionRoute)
+
 // app.use('/api', usersRoute);
 
 
 
 
-// function setUser(req, res, next) {
+//function setUser(req, res, next) {
 //     const userId = req.body.userId
 //     if(userId){
 //         req.user= users.find(user => user.id === userId)
 //     }
 //     next()
 // }
-function setFilieres(req, res, next){
-    const userId = req.body.id
-    if (userId){
-        req.filiere = filieres.find(filiere => filiere.userId === userId)
+function setFilieres(req, res, next) {
+    const userId = req.body.id;
+    if (userId) {
+        req.filiere = filieres.find(filiere => filiere.userId === userId);
     }
-    next()
+    next();
 }
+
 
 app.use(setFilieres)
 
@@ -71,11 +77,11 @@ app.use(setFilieres)
 
 
 
-app.listen(PORT, ()=> {
+app.listen(PORT, () => {
     console.log("Server running")
 })
 
 
-module.exports = {
-    mySession
-}
+// module.exports = {
+//     mySession
+// }

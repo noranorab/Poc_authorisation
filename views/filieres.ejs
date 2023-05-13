@@ -1,44 +1,145 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Filieres page</title>
-    <!-- <script>
-        function moduleRedirect(event){
-            const name = event.target.dataset.name
-            location.href = `/modules/${name}`
+    <title>Présentation des filières</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
         }
-
-    </script> -->
-    <!-- <style>
-        .filiere_container{
+        
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #333;
+        }
+        
+        #filiere-container {
             display: flex;
-            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin-top: 20px;
+            margin-left: 300px;
+            margin-right: 20px;
         }
-        .filiere{
-            border: 1px solid black;
-            font-size: 1rem;
-            font-family: 'Courier New', Courier, monospace;
-            padding: 1rem;
-            margin-right: 3rem;
+        
+        .filiere {
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 20px;
+            margin-bottom: 20px;
+            width: calc(33.33% - 20px);
         }
-
-        button{
-            margin-top: 3rem;
+        
+        .filiere h2 {
+            margin-top: 0;
+            color: #333;
         }
-    </style> -->
+        
+        .filiere p {
+            color: #666;
+        }
+        
+        .actions {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 20px;
+        }
+        
+        .actions button:hover {
+            background-color: #0056b3;
+        }
+        
+        #ajouter-filiere {
+            display: block;
+            margin: 30px auto;
+            text-align: center;
+            font-size: larger;
+        }
+        
+        .actions button {
+            margin-left: 10px;
+            padding: 3px 8px;
+            border-radius: 3px;
+            background-color: #007bff;
+            border: none;
+            color: #fff;
+            cursor: pointer;
+            font-size: 12px;
+        }
+        
+        #ajouter-filiere button {
+            width: 40px;
+            height: 10px;
+            padding: 0;
+            border-radius: 5px;
+            background-color: #007bff;
+            border: none;
+            color: #fff;
+            cursor: pointer;
+        }
+        
+        #ajouter-filiere button:hover {
+            background-color: green;
+        }
+    </style>
 </head>
+
 <body>
     <%- include('./sideBar') %>
-    <!-- <h1>Filieres</h1>
-        <div class="filiere_container">
-            <% filieres.forEach(filiere => { %>
-                <div class="filiere" data-name="<%= filiere.name %>" onclick="moduleRedirect(event)">
-                    <%= filiere.name %>
+        <h1>Présentation des filières</h1>
+
+        <div id="filiere-container">
+            <div class="filiere">
+                <h2>AS-EDS</h2>
+                <p>AS-EDS est une filière axée sur les systèmes embarqués et la conception de logiciels pour des applications embarquées.</p>
+                <div class="actions">
+                    <button onclick="ajouterFiliere(event)">modifier</button>
+                    <script>
+                        function ajouterFiliere(event) {
+                            location.href = '/addMatiere'
+                        }
+                    </script>
+                    <button class="supprimer">Supprimer</button>
                 </div>
-            <% }); %>
-        </div> -->
+            </div>
+
+            <div class="filiere">
+                <h2>ICCN</h2>
+                <p>ICCN est une filière spécialisée dans les réseaux informatiques, la cybersécurité et les communications.</p>
+                <div class="actions">
+                    <button class="modifier">Modifier</button>
+                    <button class="supprimer">Supprimer</button>
+                </div>
+            </div>
+
+            <div class="filiere">
+                <h2>DATA</h2>
+                <p>DATA est une filière dédiée à la gestion, l'analyse et l'exploitation des données massives et du Big Data.</p>
+                <div class="actions">
+                    <button class="modifier">Modifier</button>
+                    <button class="supprimer">Supprimer</button>
+                </div>
+
+            </div>
+            <button style="  
+            padding: 3px 8px;
+            height:50px;
+
+            border-radius: 3px;
+            background-color: #00ffa6;
+            border: none;
+            color: #fff;
+            cursor: pointer;
+            font-size: 12px;" onclick="ajouterFiliere(event)">Ajouter filiere</button>
+            <script>
+                function ajouterFiliere(event) {
+                    location.href = '/addMatiere'
+                }
+            </script>
+        </div>
 </body>
+
+
 </html>

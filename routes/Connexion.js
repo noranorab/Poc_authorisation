@@ -1,7 +1,7 @@
 const { closeDelimiter } = require('ejs')
 const express = require('express')
 const router = express.Router()
-const {users, ROLE}= require('../data')
+const { users, ROLE } = require('../data')
 
 
 // function getUser(req, res, next){
@@ -11,32 +11,32 @@ const {users, ROLE}= require('../data')
 //     }
 // }
 
-router.get('/',(req,res) => {
+router.get('/', (req, res) => {
     console.log('helo from get COnnexion')
-    res.render('connexion')
+    res.render('adminDashboard')
 })
 
-router.post('/', async (req, res) => {
+router.post('/', async(req, res) => {
     console.log('hello from post connexion')
-    const {username, password} = req.body
-    if (username && password){
+    const { username, password } = req.body
+    if (username && password) {
         const user = users.find((user) => user.username == username);
         // const filiere = setFilieres(user)
-        if(user){
-            const validPx = password == user.password? true : false
-            if (validPx){
+        if (user) {
+            const validPx = password == user.password ? true : false
+            if (validPx) {
                 req.session.name = user.username
-                if(user.role == ROLE.ADMIN){
+                if (user.role == ROLE.ADMIN) {
                     return res.render('adminDashboard')
-                }else if(user.role == ROLE.CF){
-                    res.render({data : 'this is cf page'})
-                }else{
-                    res.render({data : 'this is cm page'})
+                } else if (user.role == ROLE.CF) {
+                    res.render({ data: 'this is cf page' })
+                } else {
+                    res.render({ data: 'this is cm page' })
                 }
-            }else{
+            } else {
                 console.log('mdp incorrect')
             }
-        }else{
+        } else {
             console.log('user doesnt exist')
         }
     }
@@ -46,12 +46,11 @@ router.post('/', async (req, res) => {
 })
 
 router.put('/', (req, res) => {
-    res.send({data: 'page updated'})
+    res.send({ data: 'page updated' })
 })
 
 router.delete('/', (req, res) => {
-    res.send({data : "page deleted"})
+    res.send({ data: "page deleted" })
 })
 
 module.exports = router
-
