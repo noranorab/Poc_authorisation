@@ -12,7 +12,7 @@
         h1, h5{
             font-family: 'Poppins' ;
         }
-        h5{
+        .avancementCours{
             margin-bottom: 10px;
             color: aqua;
             font-size: 12px;
@@ -35,7 +35,7 @@
             <h2>Semester <%= currentSchoolYear.semester %>, <%= currentSchoolYear.year %></h2>
         </div>
         <div class="avancement">
-            <h5>Avancements des cours</h5>
+            <h5 class="avancementCours">Avancements des cours</h5>
             <form onsubmit="launchSchoolYear(event)">
                 <label for="year">Year:</label>
                 <input type="text" id="year" name="year" value="2022/2023" />

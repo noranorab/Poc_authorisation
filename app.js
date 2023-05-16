@@ -6,7 +6,7 @@ const session = require('express-session')
 const {filieres, users} = require('./data')
 const anneeUniversitaire = require('./views/js/anneeUniversitaire')
 
-const pgSessionStore = require('./model/db')
+const pgSessionStore = require('./model/session')
 
 const bodyParser = require('body-parser');
 const path = require('path');
@@ -17,6 +17,8 @@ const moduleRoute = require('./routes/Modules')
 const coursRoute = require('./routes/Cours')
 const filiereRoute = require('./routes/Filieres')
 const adminRoute = require('./routes/adminDashboard')
+const compteRoute = require('./routes/Comptes')
+const ajouterFiliereRoute = require('./routes/AjouterFiliere')
 
 app.set('view engine', 'ejs');
 
@@ -27,6 +29,7 @@ app.use(bodyParser.json());
 
 const mySession = {
     name: 'sid',
+    password : 'sid',
     resave: false,
     saveUninitialized: false,
     secret:  'hello',
@@ -46,6 +49,8 @@ app.use('/modules', moduleRoute)
 app.use('/cours', coursRoute)
 app.use('/filieres', filiereRoute)
 app.use('/adminDashboard', adminRoute)
+app.use('/comptes', compteRoute)
+app.use('/ajouterFiliere', ajouterFiliereRoute)
 
 let currentSchoolYear = null;
 

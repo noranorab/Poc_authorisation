@@ -8,7 +8,7 @@ const {authUser, authRole} = require('../basicAuth')
 
 router.get('/', (req,res) => {
     console.log('hello from get filieres')
-    res.render('filieres', {filieres})
+    res.render('filieres')
 
 })
 

@@ -4,14 +4,61 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;600&display=swap" rel="stylesheet">
     <title>connexion</title>
+    <style>
+        body{
+            user-select: none;
+            overflow-y: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: hsl(218deg 50% 91%);
+            height: 100vh;
+        }
+        .input1{
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 20px;
+            height: 30px;
+            width: 200px;
+        }
+        .connect{
+            align-items: center;
+            font-size: 1rem;
+            font-family: 'Poppins';
+            color: rgb(51, 51, 51);
+            margin-top: 50px;
+            margin-bottom: 50px;
+
+        }
+        .container{
+            border: solid rgb(172, 172, 172) 1px;
+            box-shadow: 1px 5px 2px rgb(145, 145, 145);
+            background: white;
+            padding: 5rem;
+            padding-top: 1rem;
+            border-radius: 10%;
+            position: absolute;
+        }
+        .submit{
+            align-items: center;
+            margin-left: 70px;
+        }
+    </style>
 </head>
 <body>
-    <h1>Connect to your session</h1>
-    <form action="/Connexion" method="POST">
-        <input name="username" type="text" placeholder="username" required/>
-        <input name="password" type="password" placeholder="password"/>
-        <input type="submit" value="Connect">
-    </form>
+    <div class="container">
+        <h1 class="connect">Connect to your session</h1>
+        <form action="/Connexion" method="POST">
+            <input class='input1' name="username" type="text" placeholder="username" required/>
+            <input class='input1' name="password" type="password" placeholder="password"/>
+            <input class="submit" type="submit" value="Connect">
+        </form>
+
+    </div>
+   
 </body>
 </html>

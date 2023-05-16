@@ -18,10 +18,8 @@
                 location.href = '/filieres';
             } else if (liElement.getAttribute('name') === 'third') {
                 location.href = '/modules';
-            } else if (liElement.getAttribute('name') === 'fourth') {
-                location.href = '/cours';
             } else {
-                location.href = '/Parameters';
+                location.href = '/comptes';
             }
             } 
     </script>
@@ -46,18 +44,18 @@
             top: 0;
             bottom: 0;
         }
-        h5{
+        .bienvenu{
             margin-bottom: 10px;
             color: aqua;
             font-size: 12px;
         }
-        li {
+        .item2 {
             margin-bottom: 10px;
             cursor: pointer;
             color: white;
         }
 
-        li:hover {
+        .item2:hover {
             color: #fff;
             background-color: #537299;
         }
@@ -73,13 +71,12 @@
 </head>
 <body>
     <div class="sideBar">
-        <h5>Bienvenue</h5>
+        <h5 class="bienvenu">Bienvenue</h5>
         <ul onclick="myFunction(event)">
-            <li name="first">Dashboard</li>
-            <li name="second">Filières</li>
-            <li name="third">Modules</li>
-            <li name="fourth">Cours</li>
-            <li name="fifth">Manage</li>
+            <li name="first" class="item2">Dashboard</li>
+            <li name="second" class="item2">Filières</li>
+            <li name="third" class="item2">Modules</li>
+            <li name="fifth" class="item2">Comptes</li>
         </ul>
     </div>
     
