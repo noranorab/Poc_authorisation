@@ -1,10 +1,10 @@
 const { closeDelimiter } = require('ejs')
 const express = require('express')
 const router = express.Router()
-const {users, ROLE}= require('../data')
+// const {users, ROLE}= require('../data')
 const anneeUniversitaire = require('../views/js/anneeUniversitaire')
-const {getAccountUser} = require('../model/comptes')
-const {getUser} = require('../model/users')
+const {getCompte} = require('../controller/compte')
+const {getProf} = require('../controller/prof')
 
 // function getUser(req, res, next){
 //     const userId = req.body.id
@@ -22,32 +22,38 @@ router.post('/', async (req, res) => {
     console.log('hello from post connexion')
     const {username, password} = req.body
     if (username && password){
-        const User = await getAccountUser(username, password);
-        const [id ,nom, prenom, role] = await getUser(User.fk_compte_users_id);
-        const user = {
-            id : id,
-            nom: nom,
-            prenom: prenom,
-            password : password,
-            username : username,
-            role: role
+        const compte = await getCompte(username, password);
+        console.log(compte)
+        const User = await getProf(compte[0].fk_compte_users_id);
+        console.log(User)
+        const prof = {
+            id : User[0].idprofesseur,
+            nom: User[0].nom,
+            prenom: User[0].prenom,
+            password : compte[0].password,
+            username : compte[0].username,
+            role: User[0].role
 
         }
-        console.log(user)
+        console.log(prof)
         // const filiere = setFilieres(user)
+        req.session.name = prof.username
+        req.session.password = prof.password
         console.log(req.session)
-                req.session.name = user.username
-                req.session.password = user.password
-                if(user.role == ROLE.ADMIN){
-                    anneeUniversitaire.lancerAnneeUniversitaire()
-                    const currentSchoolYear = anneeUniversitaire.obtenirAnneeUniversitaire();
-                    return res.render('adminDashboard', { user, currentSchoolYear})
+        if(prof.role == 'admin'){
+                    // anneeUniversitaire.lancerAnneeUniversitaire()
+                    // const currentSchoolYear = anneeUniversitaire.obtenirAnneeUniversitaire();
+                return res.render('adminDashboard', { prof})
 
-                }else if(user.role == ROLE.CF){
-                    res.render({data : 'this is cf page'})
-                }else{
-                    res.render({data : 'this is cm page'})
-                }
+        }else if(prof.role == 'CF'){
+                return res.render('profDashboard', { prof})
+        }else if(prof.role == 'CM'){
+                return res.render('profDashboard', { prof})
+        }else if(prof.role == 'Prof'){
+                return res.render('profDashboard', { prof})
+        }else{
+                return res.render({data : 'this is  page'})
+        }
     }
     console.log('hello from here ')
     res.redirect('connexion')

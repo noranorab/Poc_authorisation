@@ -1,4 +1,4 @@
-const db = require('./db');
+const db = require('./db_postgres');
 const session = require('express-session');
 const pgSession = require('connect-pg-simple')(session);
 

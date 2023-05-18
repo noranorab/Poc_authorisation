@@ -29,21 +29,20 @@
 </head>
 <body>
     <%- include('./sideBar') %>
-    <% if (user){ %>
+    <% if (prof){ %>
         <div class="hello">
-            <h1>Hello <%= user.username %> </h1>
-            <h2>Semester <%= currentSchoolYear.semester %>, <%= currentSchoolYear.year %></h2>
+            <h1>Hello <%= prof.username %> </h1>
         </div>
         <div class="avancement">
             <h5 class="avancementCours">Avancements des cours</h5>
-            <form onsubmit="launchSchoolYear(event)">
+            <!-- <form onsubmit="launchSchoolYear(event)">
                 <label for="year">Year:</label>
                 <input type="text" id="year" name="year" value="2022/2023" />
                 <label for="semester">Semester:</label>
                 <input type="text" id="semester" name="semester" value="1" />
                 <input type="submit" value="Launch a New School Year" />
-            </form>
-            <script>
+            </form> -->
+            <!-- <script>
                 // Assuming you're using a client-side framework like React, Vue.js, or plain JavaScript
         
                     function launchSchoolYear(event) {
@@ -75,7 +74,7 @@
                             });
                     }
                 
-            </script>
+            </script> -->
         </div>
     <% }else{ %>
         <% console.log("page not found") %>

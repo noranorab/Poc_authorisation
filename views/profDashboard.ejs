@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <%- include('sideBar') %>
+    <% if (prof){ %>
+        <div class="hello">
+            <h1>Hello <%= prof.username %> </h1>
+        </div>
+    <% }else{ %>
+        <% console.log("page not found") %>
+    <% } %>
+    
+</body>
+</html>

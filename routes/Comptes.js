@@ -1,7 +1,6 @@
 const { render } = require('ejs')
 const express = require('express')
 const router = express.Router()
-const {getAccountUser, updateAccount} = require('../model/comptes')
 const {getUser, updateUser} = require('../model/users')
 
 
