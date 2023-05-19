@@ -9,17 +9,17 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;600&display=swap" rel="stylesheet">
     <script>
-        function myFunction(event) {
-            const liElement = event.target;
+        // function myFunction(event) {
+        //     const liElement = event.target;
 
-            if (liElement.getAttribute('name') === 'first') {
-                location.href = '/adminDashboard';
-            } else if (liElement.getAttribute('name') === 'second') {
-                location.href = '/cours';
-            } else {
-                location.href = '/comptes';
-            }
-            } 
+        //     if (liElement.getAttribute('name') === 'first') {
+        //         location.href = '/adminDashboard';
+        //     // } else if (liElement.getAttribute('name') === 'second') {
+        //     //     location.href = '/cours';
+        //     } else {
+        //         location.href = '/comptes';
+        //     }
+        //     } 
     </script>
     <style>
         body{
@@ -45,12 +45,15 @@
         .bienvenu{
             margin-bottom: 10px;
             color: aqua;
-            font-size: 12px;
+            font-size: 20px;
         }
         .item2 {
             margin-bottom: 10px;
             cursor: pointer;
             color: white;
+        }
+        #item2{
+            margin-top: 50px;
         }
 
         .item2:hover {
@@ -65,14 +68,74 @@
         .avancement{
             margin-top: 100px;
         }
+        .secondeUl {
+        list-style-type: none;
+        cursor: pointer;
+        }
+        .dropdown-header{
+            color: #fff;
+            margin-bottom: 10px;
+
+        }
+        .dropdown-header:hover{
+            color: #fff;
+            background-color: #537299;
+
+        }
+
+        .dropdown-header::after {
+
+        display: inline-block;
+        margin-left: 5px;
+        transition: transform 0.3s ease;
+        }
+
+
+        .elt {
+        display: none;
+        color: white;
+        margin-left: 10px;
+        }
+        .elt:hover {
+        color: white;
+        margin-left: 10px;
+        background: rgb(48, 48, 100);
+        padding-left: 10px;
+        }
+
+        .open {
+        display: block;
+        margin-bottom: 5px;
+        }
     </style>
 </head>
 <body>
     <div class="sideBar">
         <h5 class="bienvenu">Bienvenue</h5>
         <ul onclick="myFunction(event)">
-            <li name="first" class="item2">Dashboard</li>
-            <li name="second" class="item2">Cours</li>
+            <li name="first" class="item2" id="item2">Dashboard</li>
+            <div  class='secondUl'onclick="dropdown(event)">
+                <li class="dropdown-header">Cours</li>
+                <% for (var i = 0; i < coursList.length; i++) { %>
+                    <li class="elt" onclick="eltClick(event)"><%= coursList[i].nom %></li>
+                <% } %>
+            </div>
+            <script>
+                function eltClick(event){
+                    
+
+                }
+                function dropdown(event) {
+                    var target = event.target;
+                    if (target.tagName === 'LI' && target.classList.contains('dropdown-header')) {
+                        target.classList.toggle('open');
+                        var dropdownItems = target.parentNode.getElementsByTagName('li');
+                        for (var i = 1; i < dropdownItems.length; i++) {
+                            dropdownItems[i].classList.toggle('open');
+                        }
+                    }
+                }
+            </script>
             <li name="third" class="item2">Profile</li>
         </ul>
     </div>

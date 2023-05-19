@@ -1,10 +1,10 @@
-import { DataTypes } from 'sequelize';
-import sequelize from './connection.js'
+const DataTypes = require('sequelize').DataTypes;
+const sequelize = require('./sequelize');
 
 //Here I define the table of Prof
 
-const Cours = sequelize.define('Cours',{
-    idCours:{
+const Cours = sequelize.define('cours',{
+    idcours:{
         type:DataTypes.INTEGER,
         autoIncrement:true,
         primaryKey:true
@@ -19,7 +19,7 @@ const Cours = sequelize.define('Cours',{
         type:DataTypes.INTEGER,
         references:{
             model:"Prof",
-            key:"idProfesseur"
+            key:"idprofesseur"
         }
     },
     fk_cours_modules_id:{
@@ -35,6 +35,4 @@ const Cours = sequelize.define('Cours',{
     }
 )
 
-module.exports= {
-    Cours
-}
+module.exports= Cours;

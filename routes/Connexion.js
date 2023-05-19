@@ -5,6 +5,7 @@ const router = express.Router()
 const anneeUniversitaire = require('../views/js/anneeUniversitaire')
 const {getCompte} = require('../controller/compte')
 const {getProf} = require('../controller/prof')
+const { getCoursByIdProf } = require('../controller/cours')
 
 // function getUser(req, res, next){
 //     const userId = req.body.id
@@ -35,8 +36,17 @@ router.post('/', async (req, res) => {
             role: User[0].role
 
         }
-        console.log(prof)
-        // const filiere = setFilieres(user)
+        const coursList = []
+        const Cours = await getCoursByIdProf(prof.id)
+        for (let i=0; i<Cours.length; i++){
+            const cours  = {
+                id: Cours[i].idcours,
+                nom: Cours[i].nom,
+                description: Cours[i].description,
+            }
+            coursList.push(cours)
+        }
+        console.log(coursList)
         req.session.name = prof.username
         req.session.password = prof.password
         console.log(req.session)
@@ -46,11 +56,11 @@ router.post('/', async (req, res) => {
                 return res.render('adminDashboard', { prof})
 
         }else if(prof.role == 'CF'){
-                return res.render('profDashboard', { prof})
+                return res.render('profDashboard', { prof, coursList})
         }else if(prof.role == 'CM'){
-                return res.render('profDashboard', { prof})
+                return res.render('profDashboard', {prof })
         }else if(prof.role == 'Prof'){
-                return res.render('profDashboard', { prof})
+                return res.render('profDashboard', { prof, coursList})
         }else{
                 return res.render({data : 'this is  page'})
         }
