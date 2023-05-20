@@ -3,8 +3,6 @@ const app = express();
 const PORT = 6969;
 const {Sequelize} = require('sequelize')
 const session = require('express-session')
-// const {filieres, users} = require('./data')
-const anneeUniversitaire = require('./views/js/anneeUniversitaire')
 
 const pgSessionStore = require('./model/session')
 const sequelize = require('./model/sequelize')
@@ -106,5 +104,5 @@ app.listen(PORT, ()=> {
 
 
 module.exports = {
-    mySession
+    mySession, app
 }

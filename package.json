@@ -8,5 +8,13 @@
     "pg": "^8.11.0",
     "pg-hstore": "^2.3.4",
     "sequelize": "^6.31.1"
+  },
+  "devDependencies": {
+    "chai": "^4.3.7",
+    "mocha": "^10.2.0",
+    "supertest": "^6.3.3"
+  },
+  "scripts": {
+    "test": "node ./node_modules/mocha/bin/mocha"
   }
 }
