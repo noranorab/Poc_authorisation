@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+    <h1>Séance</h1>
+    <form id="seanceForm" method="POST" action="/seanceList">
+        <div>
+          <label for="date">Date:</label>
+          <input type="date" id="date" name="date" required>
+        </div>
+        <div>
+          <label for="heureDebut">Heure de début:</label>
+          <input type="time" id="heureDebut" name="heureDebut" required>
+        </div>
+        <div>
+          <label for="heureFin">Heure de fin:</label>
+          <input type="time" id="heureFin" name="heureFin" required>
+        </div>
+        <div>
+          <label for="objectifs">Objectifs:</label>
+          <textarea id="objectifs" name="objectifs" required></textarea>
+        </div>
+        <div>
+          <label for="remarques">Remarques:</label>
+          <textarea id="remarques" name="remarques"></textarea>
+        </div>
+        <div>
+          <label for="idCours">ID Cours:</label>
+          <input type="number" id="idCours" name="idCours" required>
+        </div>
+        <div>
+          <button type="submit">Enregistrer</button>
+          <button>Supprimer</button>
+        </div>
+      </form>
+      
+    
+</body>
+</html>

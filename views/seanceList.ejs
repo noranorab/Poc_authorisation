@@ -4,13 +4,45 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .container{
+            width: calc(100% - 200px);
+            margin-left: 270px;
+        }
+    </style>
 </head>
 <body>
-    <h1>Séances</h1>
-    <% for (var i = 0; i < seanceList.length; i++) { %>
-        <li class="elt" onclick="eltClick(event)"><%= seanceList[i].id %></li>
-    <% } %>
-    <button>Ajouter</button>
+    <%- include('sideBarProf') %>
+    <div class="container">
+        <h1>Séances</h1>
+        <% if (seanceList.length > 0) { %>
+            <div class="seances">
+              <ul></ul>
+            </div>
+        <% } else { %>
+            <h5>Aucune séance n'est ajoutée</h5>
+        <% } %>
+          
+        
+        <button onclick="ajouterSeance()">Ajouter</button>
+
+    </div>
+
+    <script>
+        // const queryString = window.location.search;
+        // const urlParams = new URLSearchParams(queryString);
+
+        // // Check if the dropdown query parameter is present and has the value 'true'
+        // const isDropdownOpen = urlParams.get('dropdown') === 'true';
+
+        // if (isDropdownOpen) {
+        // }
+        function ajouterSeance(){
+            location.href = '/seance'
+        }
+    </script>
+
+
     
 </body>
 </html>

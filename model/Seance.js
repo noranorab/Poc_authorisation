@@ -4,7 +4,7 @@ const sequelize = require('./sequelize');
 //Here I define the table of Prof
 
 const Seance = sequelize.define('seance', {
-    idSeance: {
+    idseance: {
       type: DataTypes.INTEGER,
       primaryKey: true,
       autoIncrement: true
@@ -13,11 +13,11 @@ const Seance = sequelize.define('seance', {
       type: DataTypes.DATE,
       allowNull: false
     },
-    heureDebut: {
+    heuredebut: {
       type: DataTypes.TIME,
       allowNull: false
     },
-    heureFin: {
+    heurefin: {
       type: DataTypes.TIME,
       allowNull: false
     },

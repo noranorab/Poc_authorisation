@@ -13,12 +13,14 @@ const connRoute = require('./routes/Connexion')
 const homeRoute = require('./routes/Home')
 const moduleRoute = require('./routes/Modules')
 const coursRoute = require('./routes/Cours')
-const filiereRoute = require('./routes/Filieres')
+const seanceListRoute = require('./routes/seanceList')
 const adminRoute = require('./routes/adminDashboard')
 const compteRoute = require('./routes/Comptes')
 const ajouterFiliereRoute = require('./routes/AjouterFiliere')
 const profRoute = require('./routes/profDashboard')
 
+
+// const setVariables = require('./routes/setVariables')
 app.set('view engine', 'ejs');
 
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -44,11 +46,14 @@ app.use(session(
     mySession
 ))
 
+// app.use(setVariables)
+
 app.use('/connexion', connRoute)
 // app.use('/home', homeRoute)
 // app.use('/modules', moduleRoute)
 // app.use('/cours', coursRoute)
 // app.use('/filieres', filiereRoute)
+app.use('/' ,seanceListRoute)
 app.use('/adminDashboard', adminRoute)
 app.use('/profDashboard', profRoute)
 // app.use('/comptes', compteRoute)

@@ -107,24 +107,66 @@
         display: block;
         margin-bottom: 5px;
         }
+        .seancePage{
+            width: calc(100% - 200px);
+            margin-left: 270px;
+        }
+        .addButton{
+            width: calc(100% - 200px);
+            margin-left: 270px;
+
+        }
     </style>
 </head>
 <body>
+    <div class="seancePage" id="seanceListContainer">
+    </div>
     <div class="sideBar">
         <h5 class="bienvenu">Bienvenue</h5>
-        <ul onclick="myFunction(event)">
+        <ul>
             <li name="first" class="item2" id="item2">Dashboard</li>
             <div  class='secondUl'onclick="dropdown(event)">
                 <li class="dropdown-header">Cours</li>
                 <% for (var i = 0; i < coursList.length; i++) { %>
-                    <li class="elt" onclick="eltClick(event)"><%= coursList[i].nom %></li>
+                    <li class="elt" onclick="eltClick(event)" data="<%= coursList[i].id %>"><%= coursList[i].nom %></li>
                 <% } %>
             </div>
+
             <script>
                 function eltClick(event){
-                    
-
+                    var courseId = event.target.getAttribute('data');  
+                    location.href = '/seanceList/' + courseId +  '?dropdown=true'
                 }
+                // function renderSeanceList(seanceList) {
+                //     var seanceListContainer = document.getElementById('seanceListContainer');
+                //         if (seanceList.length === 0) {
+                //             seanceListContainer.textContent = 'No seances found.';
+                //         }
+
+                //         for (var i = 0; i < seanceList.length; i++) {
+                //             var seance = seanceList[i];
+                //             var listItem = document.createElement('li');
+                           
+                //             listItem.textContent = 'Seance: ' + seance.date + ', ' + seance.heuredebut + ' - ' + seance.heurefin;
+                //             seanceListContainer.appendChild(listItem);
+                //         }
+                // }
+                // function eltClick(event) {
+                //     console.log('hey')
+                //     var courseId = event.target.getAttribute('data');  
+                //     console.log(courseId)                  
+                //     var xhr = new XMLHttpRequest();
+                //     xhr.open('GET', '/seanceList/' + courseId, true);
+                //     xhr.onreadystatechange = function () {
+                //         if (xhr.readyState === 4 && xhr.status === 200) {
+                //             var seanceList = JSON.parse(xhr.responseText);
+                //             // Process the seanceList as needed
+                //             renderSeanceList(seanceList);
+                //             // Example: Render the seanceList on the page
+                //         }
+                //     };
+                //     xhr.send();
+                // }
                 function dropdown(event) {
                     var target = event.target;
                     if (target.tagName === 'LI' && target.classList.contains('dropdown-header')) {
@@ -134,6 +176,9 @@
                             dropdownItems[i].classList.toggle('open');
                         }
                     }
+                }
+                function ajouterSeance(){
+                    location.href = "/seance"
                 }
             </script>
             <li name="third" class="item2">Profile</li>

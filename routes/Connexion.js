@@ -6,6 +6,7 @@ const anneeUniversitaire = require('../views/js/anneeUniversitaire')
 const {getCompte} = require('../controller/compte')
 const {getProf} = require('../controller/prof')
 const { getCoursByIdProf } = require('../controller/cours')
+const { getSeanceByCours } = require('../controller/seance')
 
 // function getUser(req, res, next){
 //     const userId = req.body.id
@@ -38,6 +39,7 @@ router.post('/', async (req, res) => {
         }
         const coursList = []
         const Cours = await getCoursByIdProf(prof.id)
+        const seanceList = []
         for (let i=0; i<Cours.length; i++){
             const cours  = {
                 id: Cours[i].idcours,
@@ -56,7 +58,7 @@ router.post('/', async (req, res) => {
                 return res.render('adminDashboard', { prof})
 
         }else if(prof.role == 'CF'){
-                return res.render('profDashboard', { prof, coursList})
+                return res.render('profDashboard', { prof, coursList, seanceList})
         }else if(prof.role == 'CM'){
                 return res.render('profDashboard', {prof })
         }else if(prof.role == 'Prof'){

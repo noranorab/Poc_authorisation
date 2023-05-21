@@ -21,11 +21,11 @@ const insertSeance = async (date, hd, hf, obj, rmq, idCours ) => {
 
 }
 
-const getSeanceByCours = async (idCours) => {
+const getSeanceByCours = async (idcours) => {
     try{
         const seance = await Seance.findAll({
             where: {
-                fk_senace_cours_id : idCours
+                fk_seance_cours_id : idcours
             }
         });
         return seance;
