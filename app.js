@@ -18,6 +18,7 @@ const adminRoute = require('./routes/adminDashboard')
 const compteRoute = require('./routes/Comptes')
 const ajouterFiliereRoute = require('./routes/AjouterFiliere')
 const profRoute = require('./routes/profDashboard')
+const seanceRoute = require('./routes/seance')
 
 
 // const setVariables = require('./routes/setVariables')
@@ -49,10 +50,7 @@ app.use(session(
 // app.use(setVariables)
 
 app.use('/connexion', connRoute)
-// app.use('/home', homeRoute)
-// app.use('/modules', moduleRoute)
-// app.use('/cours', coursRoute)
-// app.use('/filieres', filiereRoute)
+app.use('/seance', seanceRoute)
 app.use('/' ,seanceListRoute)
 app.use('/adminDashboard', adminRoute)
 app.use('/profDashboard', profRoute)

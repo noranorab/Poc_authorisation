@@ -4,39 +4,100 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .container{
+            width: calc(100% - 200px);
+            margin-left: 270px;
+        }
+        h1{
+          margin: 50px;
+
+        }
+        #seanceForm{
+          padding: 20px;
+          margin-left: 30px;
+        }
+
+        .form-element{
+          margin-bottom: 15px;
+        }
+        .form-submit-button {
+          padding: 10px 20px;
+          background-color: #4CAF50;
+          color: white;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+        }
+        label {
+          display: block;
+          margin-bottom: 10px;
+          font-weight: bold;
+        }
+
+        /* Style form inputs */
+        input{
+          width: 60%;
+          padding: 10px;
+          margin-bottom: 15px;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+        }
+
+        textarea{
+          width: 60%;
+          height: 50px;
+          padding: 10px;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+        }
+        .form-delete-button{
+          padding: 10px 20px;
+          background-color: #ff4444;
+          color: white;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+        }
+    </style>
 </head>
 <body>
-    <h1>Séance</h1>
-    <form id="seanceForm" method="POST" action="/seanceList">
-        <div>
+  <%- include('sideBarProf') %>
+    
+    <div class="container">
+      <h1>Séance</h1>
+      <form id="seanceForm" method="POST" action="/seanceList">
+        <div class="form-element">
+          <label for="idCours">Numéro de séance:</label>
+          <input type="number" id="idSeance" name="idSeance" required>
+        </div>
+        <div class="form-element">
           <label for="date">Date:</label>
           <input type="date" id="date" name="date" required>
         </div>
-        <div>
+        <div class="form-element">
           <label for="heureDebut">Heure de début:</label>
           <input type="time" id="heureDebut" name="heureDebut" required>
         </div>
-        <div>
+        <div class="form-element">
           <label for="heureFin">Heure de fin:</label>
           <input type="time" id="heureFin" name="heureFin" required>
         </div>
-        <div>
+        <div class="form-element">
           <label for="objectifs">Objectifs:</label>
           <textarea id="objectifs" name="objectifs" required></textarea>
         </div>
-        <div>
+        <div class="form-element">
           <label for="remarques">Remarques:</label>
           <textarea id="remarques" name="remarques"></textarea>
         </div>
-        <div>
-          <label for="idCours">ID Cours:</label>
-          <input type="number" id="idCours" name="idCours" required>
-        </div>
-        <div>
-          <button type="submit">Enregistrer</button>
-          <button>Supprimer</button>
+        
+        <div class="form-element">
+          <button type="submit" class="form-submit-button">Enregistrer</button>
+          <button class="form-delete-button">Supprimer</button>
         </div>
       </form>
+    </div>
       
     
 </body>
