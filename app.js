@@ -50,7 +50,7 @@ app.use(session(
 // app.use(setVariables)
 
 app.use('/connexion', connRoute)
-app.use('/seance', seanceRoute)
+app.use('/', seanceRoute)
 app.use('/' ,seanceListRoute)
 app.use('/adminDashboard', adminRoute)
 app.use('/profDashboard', profRoute)

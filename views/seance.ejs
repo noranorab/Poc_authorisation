@@ -66,11 +66,7 @@
     
     <div class="container">
       <h1>Séance</h1>
-      <form id="seanceForm" method="POST" action="/seanceList">
-        <div class="form-element">
-          <label for="idCours">Numéro de séance:</label>
-          <input type="number" id="idSeance" name="idSeance" required>
-        </div>
+      <form id="seanceForm" method="POST" action="/seance">
         <div class="form-element">
           <label for="date">Date:</label>
           <input type="date" id="date" name="date" required>
@@ -91,6 +87,7 @@
           <label for="remarques">Remarques:</label>
           <textarea id="remarques" name="remarques"></textarea>
         </div>
+        <input type="hidden" name="courseId" value="<%= courseId %>">
         
         <div class="form-element">
           <button type="submit" class="form-submit-button">Enregistrer</button>

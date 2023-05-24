@@ -67,6 +67,7 @@ router.get('/seanceList/:courseId', async (req, res) => {
 
 
 router.post('/', (req, res) => {
+    
     console.log('hello from post cours')
     res.render('modules')
 })

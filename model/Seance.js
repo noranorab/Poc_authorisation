@@ -11,19 +11,15 @@ const Seance = sequelize.define('seance', {
     },
     date: {
       type: DataTypes.DATE,
-      allowNull: false
     },
     heuredebut: {
       type: DataTypes.TIME,
-      allowNull: false
     },
     heurefin: {
       type: DataTypes.TIME,
-      allowNull: false
     },
     objectifs: {
       type: DataTypes.TEXT,
-      allowNull: false
     },
     remarques: {
       type: DataTypes.TEXT
@@ -32,7 +28,7 @@ const Seance = sequelize.define('seance', {
         type: DataTypes.INTEGER,
         references:{
             model:"Cours",
-            key:"idCours"
+            key:"idcours"
         }
     }
     },

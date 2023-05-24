@@ -4,16 +4,17 @@ const router = express.Router()
 const {getCompte} = require('../controller/compte')
 const {getProf} = require('../controller/prof')
 const {getCoursByIdProf} = require('../controller/cours')
-const { getSeanceByCours } = require('../controller/seance')
+const { getSeanceByCours, insertSeance } = require('../controller/seance')
 
 
 
-router.get('/', async (req, res) => {
+router.get('/seance/:courseId', async (req, res) => {
     const username = req.session.name
     const password = req.session.password
     const compte = await getCompte(username, password);
     const User = await getProf(compte[0].fk_compte_users_id);
     const courseId = req.params.courseId;
+    console.log('hello from seance', courseId)
     const prof = {
             id : User[0].idprofesseur,
             nom: User[0].nom,
@@ -59,9 +60,31 @@ router.get('/', async (req, res) => {
 })
 
 
-router.post('/', (req, res) => {
-    console.log('hello from post seance')
-    res.render('modules')
+router.post('/seance', async (req, res) => {
+    console.log('---------------------------',req.body)
+    const seance = {
+        date: req.body.date,
+        hd : req.body.heureDebut,
+        hf : req.body.heureFin,
+        obj : req.body.objectifs,
+        rmq: req.body.remarques
+    }
+    const courseId = req.body.courseId;
+    console.log('----------------------------', seance)
+
+  try {
+    const Seance = await insertSeance(seance.date, seance.hd, seance.hf, seance.obj, seance.rmq, courseId);
+    console.log( Seance);
+
+    // Send a response to the client
+    res.send('Seance successfully inserted');
+  } catch (error) {
+    console.error('An error occurred:', error);
+
+    // Send an error response to the client
+    res.status(500).send('An error occurred while inserting the seance');
+  }
+
 })
 
 router.put('/', (req, res) => {

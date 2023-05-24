@@ -24,7 +24,7 @@
         <% } %>
           
         
-        <button onclick="ajouterSeance()">Ajouter</button>
+        <button onclick="ajouterSeance('<%= courseId %>')">Ajouter</button>
 
     </div>
 
@@ -37,8 +37,8 @@
 
         // if (isDropdownOpen) {
         // }
-        function ajouterSeance(){
-            location.href = '/seance'
+        function ajouterSeance(courseId){
+            location.href = '/seance/' + courseId
         }
     </script>
 

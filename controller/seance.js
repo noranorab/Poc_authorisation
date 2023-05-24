@@ -5,8 +5,8 @@ const insertSeance = async (date, hd, hf, obj, rmq, idCours ) => {
     try{
         const seance = await Seance.create({
             date: date,
-            heureDebut: hd,
-            heureFin: hf,
+            heuredebut: hd,
+            heurefin: hf,
             objectifs: obj,
             remarques: rmq,
             fk_seance_cours_id: idCours
