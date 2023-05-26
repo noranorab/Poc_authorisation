@@ -9,15 +9,56 @@
             width: calc(100% - 200px);
             margin-left: 270px;
         }
+
+        .seanceList{
+            display: flex;
+            flex-direction: column;
+        }
+
+        .item{
+            border: 0.5px grey solid;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            max-width: 65%;
+            display: flex;
+            flex-direction: row;
+            padding-top: 10px;
+            padding-bottom: 10px;
+            padding-left: 10px;
+
+        }
+        .detail{
+            margin-left: 500px;
+        }
+        .detailContainer {
+    display: none;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+}
+
     </style>
 </head>
 <body>
     <%- include('sideBarProf') %>
     <div class="container">
         <h1>Séances</h1>
+        <% console.log(seanceList) %>
         <% if (seanceList.length > 0) { %>
             <div class="seances">
-              <ul></ul>
+                <ul class="seanceList">
+                <% for (let i = 0; i < seanceList.length; i++) { %>
+                    <div class="item">
+                        <li class="seance" data="<%= seanceList[i].id %>"> Séance <%= seanceList[i].numero %> </li>
+                        <button class="detail" >Voir détail...</button>
+                        <div class="detailContainer" style="display: none;">
+                            <!-- Contenu des détails de la séance -->
+                        </div>
+                    </div>
+                    
+                <% } %>
+                </ul>
             </div>
         <% } else { %>
             <h5>Aucune séance n'est ajoutée</h5>
@@ -40,6 +81,45 @@
         function ajouterSeance(courseId){
             location.href = '/seance/' + courseId
         }
+
+        // Récupérer les éléments de la liste et du bouton
+            // Récupérer les éléments de la liste et des boutons de détail
+        var seanceItems = document.getElementsByClassName('seance');
+        var detailButtons = document.getElementsByClassName('detail');
+        var detailContainers = document.getElementsByClassName('detailContainer');
+
+        // Ajouter des gestionnaires d'événement aux boutons "Voir détail"
+        for (var i = 0; i < detailButtons.length; i++) {
+            detailButtons[i].addEventListener('click', voirDetail);
+        }
+
+        function voirDetail(event) {
+            // Flouter la page
+            document.body.style.filter = 'blur(5px)';
+            
+            // Récupérer l'index du bouton "Voir détail" cliqué
+            var index = Array.prototype.indexOf.call(detailButtons, event.target);
+            
+            // Afficher le container de détails correspondant
+            detailContainers[index].style.display = 'block';
+        }
+
+        // Gérer le clic sur un élément de séance
+        for (var i = 0; i < seanceItems.length; i++) {
+            seanceItems[i].addEventListener('click', function() {
+                var seanceId = this.getAttribute('data-id');
+                
+                // Charger les détails de la séance en fonction de son ID
+                // Utilisez AJAX ou une autre méthode pour obtenir les détails de la séance
+                
+                // Mettre à jour le contenu du container de détails correspondant
+                var index = Array.prototype.indexOf.call(seanceItems, this);
+                detailContainers[index].innerHTML = 'Détails de la séance avec ID ' + seanceId;
+            });
+        }
+
+        
+
     </script>
 
 

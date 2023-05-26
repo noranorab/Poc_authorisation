@@ -30,6 +30,10 @@ const Seance = sequelize.define('seance', {
             model:"Cours",
             key:"idcours"
         }
+    },
+    numero : {
+      type: DataTypes.INTEGER,
+
     }
     },
     {

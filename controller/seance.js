@@ -1,7 +1,7 @@
 const sequelize = require('../model/sequelize')
 const Seance = require('../model/Seance')
 
-const insertSeance = async (date, hd, hf, obj, rmq, idCours ) => {
+const insertSeance = async (date, hd, hf, obj, rmq, idCours, numero ) => {
     try{
         const seance = await Seance.create({
             date: date,
@@ -9,7 +9,8 @@ const insertSeance = async (date, hd, hf, obj, rmq, idCours ) => {
             heurefin: hf,
             objectifs: obj,
             remarques: rmq,
-            fk_seance_cours_id: idCours
+            fk_seance_cours_id: idCours,
+            numero: numero
           });
         console.log('Seance created successfully:', seance);
         return seance;

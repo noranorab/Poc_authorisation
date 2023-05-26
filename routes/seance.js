@@ -26,7 +26,6 @@ router.get('/seance/:courseId', async (req, res) => {
     }
     const coursList = []
     const Cours = await getCoursByIdProf(prof.id)
-    // const seanceList = []
 
     for (let i=0; i<Cours.length; i++){
             const cours  = {
@@ -36,33 +35,60 @@ router.get('/seance/:courseId', async (req, res) => {
             }
             coursList.push(cours)
     }
-    // const Seances = await getSeanceByCours(courseId)
-    // console.log(Seances)
-    // if (Seances.length > 0){
-    //     for(let i = 0; i<Seances.length; i++){
-    //         const seance = {
-    //             id : Seances[i].idseance,
-    //             date : Seances[i].date,
-    //             hd : Seances[i].heuredebut,
-    //             hf : Seances[i].heurefin,
-    //             obj : Seances[i].objectifs,
-    //             rmq : Seances[i].remarques,
-    //             idcours : Seances[i].fk_seance_cours_id
-    //         }
-    //         seanceList.push(seance)
-    //     }        
-    // }else{
-    //     console.log("pas de séance")
-    // }
+    const seanceList = []
+    const Seances = await getSeanceByCours(courseId)
+    console.log(Seances)
+    if (Seances.length > 0){
+        for(let i = 0; i<Seances.length; i++){
+            const seance = {
+                id : Seances[i].idseance,
+                date : Seances[i].date,
+                hd : Seances[i].heuredebut,
+                hf : Seances[i].heurefin,
+                obj : Seances[i].objectifs,
+                rmq : Seances[i].remarques,
+                idcours : Seances[i].fk_seance_cours_id
+            }
+            seanceList.push(seance)
+        }        
+    }else{
+        console.log("pas de séance")
+    }
 
-    // console.log('hello from get seanceList')
-    return res.render('seance', {courseId, coursList})
+    console.log('hello from get seanceList')
+    return res.render('seance', {courseId, coursList, seanceList})
 })
 
 
 router.post('/seance', async (req, res) => {
-    console.log('---------------------------',req.body)
+    console.log('Hello from post seance',req.body)
+    const username = req.session.name
+    const password = req.session.password
+    const compte = await getCompte(username, password);
+    const User = await getProf(compte[0].fk_compte_users_id);
+    const prof = {
+            id : User[0].idprofesseur,
+            nom: User[0].nom,
+            prenom: User[0].prenom,
+            password : compte[0].password,
+            username : compte[0].username,
+            role: User[0].role
+
+    }
+    const coursList = []
+    const Cours = await getCoursByIdProf(prof.id)
+
+    for (let i=0; i<Cours.length; i++){
+            const cours  = {
+                id: Cours[i].idcours,
+                nom: Cours[i].nom,
+                description: Cours[i].description,
+            }
+            coursList.push(cours)
+    }
+
     const seance = {
+        numero: req.body.numero,
         date: req.body.date,
         hd : req.body.heureDebut,
         hf : req.body.heureFin,
@@ -70,14 +96,35 @@ router.post('/seance', async (req, res) => {
         rmq: req.body.remarques
     }
     const courseId = req.body.courseId;
+    const seanceList = []
+    const Seances = await getSeanceByCours(courseId)
+    console.log(Seances)
+    if (Seances.length > 0){
+        for(let i = 0; i<Seances.length; i++){
+            const seance = {
+                id : Seances[i].idseance,
+                date : Seances[i].date,
+                hd : Seances[i].heuredebut,
+                hf : Seances[i].heurefin,
+                obj : Seances[i].objectifs,
+                rmq : Seances[i].remarques,
+                idcours : Seances[i].fk_seance_cours_id,
+                numero : Seances[i].numero
+            }
+            seanceList.push(seance)
+        }        
+    }else{
+        console.log("pas de séance")
+    }
+
+
+    
     console.log('----------------------------', seance)
 
   try {
-    const Seance = await insertSeance(seance.date, seance.hd, seance.hf, seance.obj, seance.rmq, courseId);
+    const Seance = await insertSeance(seance.date, seance.hd, seance.hf, seance.obj, seance.rmq, courseId, seance.numero);
     console.log( Seance);
-
-    // Send a response to the client
-    res.send('Seance successfully inserted');
+    return res.render('seanceList', {Seance, coursList, seanceList, courseId});
   } catch (error) {
     console.error('An error occurred:', error);
 
