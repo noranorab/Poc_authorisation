@@ -137,36 +137,8 @@
                     var courseId = event.target.getAttribute('data');  
                     location.href = '/seanceList/' + courseId
                 }
-                // function renderSeanceList(seanceList) {
-                //     var seanceListContainer = document.getElementById('seanceListContainer');
-                //         if (seanceList.length === 0) {
-                //             seanceListContainer.textContent = 'No seances found.';
-                //         }
-
-                //         for (var i = 0; i < seanceList.length; i++) {
-                //             var seance = seanceList[i];
-                //             var listItem = document.createElement('li');
-                           
-                //             listItem.textContent = 'Seance: ' + seance.date + ', ' + seance.heuredebut + ' - ' + seance.heurefin;
-                //             seanceListContainer.appendChild(listItem);
-                //         }
-                // }
-                // function eltClick(event) {
-                //     console.log('hey')
-                //     var courseId = event.target.getAttribute('data');  
-                //     console.log(courseId)                  
-                //     var xhr = new XMLHttpRequest();
-                //     xhr.open('GET', '/seanceList/' + courseId, true);
-                //     xhr.onreadystatechange = function () {
-                //         if (xhr.readyState === 4 && xhr.status === 200) {
-                //             var seanceList = JSON.parse(xhr.responseText);
-                //             // Process the seanceList as needed
-                //             renderSeanceList(seanceList);
-                //             // Example: Render the seanceList on the page
-                //         }
-                //     };
-                //     xhr.send();
-                // }
+                
+                
                 function dropdown(event) {
                     var target = event.target;
                     if (target.tagName === 'LI' && target.classList.contains('dropdown-header')) {

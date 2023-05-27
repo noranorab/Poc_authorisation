@@ -27,14 +27,28 @@
             padding-left: 10px;
 
         }
+        .seance{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
         .detail{
             margin-left: 500px;
+            font-family: 'Poppins';
+            background-color: rgb(151, 151, 151);
+            color: rgb(255, 255, 255);
+            border-radius: 15px;
+            padding: 10px;
+            font-size: 10px;
+            border: rgb(94, 94, 94) 0.5px solid;
         }
         .detailContainer{
             position: fixed;
             top:50%;
             left: 50%;
-            transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%) scale(0);
+            transition: 200mx ease-in-out;
             border: 0.5px solid grey;
             border-radius: 10px;
             z-index: 10;
@@ -53,7 +67,7 @@
         }
 
         .detailContainerHeader h5{
-            font-size: 1.25rem;
+            font-size: 18px;
             font-weight: bold;
         }
 
@@ -67,10 +81,59 @@
         }
 
         .detailContainerBody{
-            padding: 10px 15px;
+            padding: 10px 15px ;
         }
-        
-        
+        .detailContainer.active{
+            transform: translate(-50%, -50%) scale(1);
+        }
+        .background{
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background-color: white;
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .background.active{
+            pointer-events: all;
+            opacity: 1;
+        }
+
+        .desc{
+            margin-bottom: 10px;
+        }
+        span{
+            font-weight: bold;
+            font-size: 12px;
+        }
+        .detailContainerFooter{
+            margin-left: 170px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+        .detailContainerFooter button{
+            margin-right: 5px;
+            padding: 10px;
+            border-radius: 10px;
+            color: white;
+            border: rgb(175, 175, 175);
+            font-family: 'Poppins';
+        }
+        .btn-modifier{
+            background-color: rgb(83, 83, 177);
+            width: 100px;
+
+        }
+
+        .btn-supprimer{
+            background-color: rgb(255, 44, 44);
+        }
+
+
 
     </style>
 </head>
@@ -84,26 +147,29 @@
                 <ul class="seanceList">
                 <% for (let i = 0; i < seanceList.length; i++) { %>
                     <div class="item">
-                        <li class="seance" data="<%= seanceList[i].id %>"> Séance <%= seanceList[i].numero %> </li>
-                        <button class="detail" >Voir détail...</button>
-                        <div class="detailContainer">
+                        <div class="seance">
+                            <li class="seance" data="<%= seanceList[i].id %>"> Séance <%= seanceList[i].numero %> </li>
+                            <button data-detail-target="#container<%= i %>" data-background-target="#background<%= i %>" class="detail" >Voir détail...</button>    
+
+                        </div>
+                        <div class="detailContainer" id="container<%= i %>">
                             <div class="detailContainerHeader">
                                 <h5>Séance <%= seanceList[i].numero %></h5>
-                                <button class="close-btn">&times;</button>
+                                <button  data-background-target="#background<%= i %>" class="close-btn">&times;</button>
                             </div>
                             <div class="detailContainerBody">
-                                <li>Le <%= seanceList[i].date %></li>
-                                <li>De <%= seanceList[i].hd %> A <%= seanceList[i].hf %></li>
-                                <li>Objectifs : <%= seanceList[i].obj %></li>
-                                <li>Remarques : <%= seanceList[i].rmq %></li>
+                                <li class="desc"><span>Le</span> <%= seanceList[i].date %></li>
+                                <li class="desc"><span>De</span> <%= seanceList[i].hd %> <span>A</span> <%= seanceList[i].hf %></li>
+                                <li class="desc"><span>Objectifs : </span> <%= seanceList[i].obj %></li>
+                                <li class="desc"><span>Remarques : </span> <%= seanceList[i].rmq %></li>
                             </div>
                             <div class="detailContainerFooter">
-                                <button>Modifier</button>
-                                <button>Supprimer</button>
+                                <button class="btn-modifier">Modifier</button>
+                                <button class="btn-supprimer">Supprimer</button>
                             </div>
                         </div>
                     </div>
-                    
+                    <div class="background" id="background<%= i %>"></div>
                 <% } %>
                 </ul>
             </div>
@@ -117,55 +183,42 @@
     </div>
 
     <script>
-        // const queryString = window.location.search;
-        // const urlParams = new URLSearchParams(queryString);
-
-        // // Check if the dropdown query parameter is present and has the value 'true'
-        // const isDropdownOpen = urlParams.get('dropdown') === 'true';
-
-        // if (isDropdownOpen) {
-        // }
         function ajouterSeance(courseId){
             location.href = '/seance/' + courseId
         }
 
-        // Récupérer les éléments de la liste et du bouton
-            // Récupérer les éléments de la liste et des boutons de détail
-        // var seanceItems = document.getElementsByClassName('seance');
-        // var detailButtons = document.getElementsByClassName('detail');
-        // var detailContainers = document.getElementsByClassName('detailContainer');
+        var opendetailButtons = document.querySelectorAll('.detail');
+        var closedetailButtons = document.querySelectorAll('.close-btn')
+        var background = document.querySelectorAll('.background')
+    
 
-        // // Ajouter des gestionnaires d'événement aux boutons "Voir détail"
-        // for (var i = 0; i < detailButtons.length; i++) {
-        //     detailButtons[i].addEventListener('click', voirDetail);
-        // }
+        opendetailButtons.forEach(element => {
+            element.addEventListener('click', () => {
+                const container = document.querySelector(element.dataset.detailTarget)
+                const background = document.querySelector(element.dataset.backgroundTarget);
+                openDetail(container, background);
+            } )
+        });
 
-        // function voirDetail(event) {
-        //     // Flouter la page
-        //     document.body.style.filter = 'blur(5px)';
-            
-        //     // Récupérer l'index du bouton "Voir détail" cliqué
-        //     var index = Array.prototype.indexOf.call(detailButtons, event.target);
-            
-        //     // Afficher le container de détails correspondant
-        //     detailContainers[index].style.display = 'block';
-        //     detailContainers[index].classList.add('show');
-        // }
+        closedetailButtons.forEach(element => {
+            element.addEventListener('click', () => {
+                const container = element.closest('.detailContainer')
+                const background = document.querySelector(element.dataset.backgroundTarget);
+                closeDetail(container, background);
+            } )
+        });
 
-        // // Gérer le clic sur un élément de séance
-        // for (var i = 0; i < seanceItems.length; i++) {
-        //     seanceItems[i].addEventListener('click', function() {
-        //         var seanceId = this.getAttribute('data-id');
-                
-        //         // Charger les détails de la séance en fonction de son ID
-        //         // Utilisez AJAX ou une autre méthode pour obtenir les détails de la séance
-                
-        //         // Mettre à jour le contenu du container de détails correspondant
-        //         var index = Array.prototype.indexOf.call(seanceItems, this);
-        //         detailContainers[index].innerHTML = 'Détails de la séance avec ID ' + seanceId;
-        //     });
-        // }
+        function openDetail(container, background){
+            if (container == null) return 
+            container.classList.add('active')
+            background.classList.add('active')
+        }
 
+        function closeDetail(container, background){
+            if (container == null) return
+            container.classList.remove('active')
+            background.classList.remove('active')
+        }
         
 
     </script>
