@@ -95,13 +95,21 @@
         
         <div class="form-element">
           <button type="submit" class="form-submit-button">Enregistrer</button>
+          <button class="form-delete-button"  onclick="resetForm(event)">Initialiser</button>
+          <script>
+            function resetForm(event) {
+              event.preventDefault(); // Prevent form submission
+              document.getElementById("seanceForm").reset(); // Reset the form
+            }
+          </script>
         </div>
       </form>
-        <button class="form-delete-button" data = "<%= courseId %>" onclick="goBack(event)">Supprimer</button>
+
+      <button data = "<%= courseId %>" class="retour" onclick="retour(event)">Retour</button>
         <script>
-          function goBack(event){
+          function retour(event){
             var courseId = event.target.getAttribute('data');  
-            location.href = 'seanceList/' + courseId
+            location.href = '/seanceList/' + courseId 
           }
         </script>
 

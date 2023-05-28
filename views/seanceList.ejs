@@ -170,8 +170,8 @@
                                 <li class="desc">Remarques :<span id="rmq">  <%= seanceList[i].rmq %> </span></li>
                             </div>
                             <div class="detailContainerFooter">
-                                <button  data-index="<%= seanceList[i].id %>" class="btn-modifier" id="button<%= i %>">Modifier</button>
-                                <button data-index="<%= seanceList[i].id %>" class="btn-supprimer" id="buttonSupprimer<%= i %>" >Supprimer</button>
+                                <button  data-course = '<%= courseId %> ' data-index="<%= seanceList[i].id %>" class="btn-modifier" id="button<%= i %>">Modifier</button>
+                                <button  data-index="<%= seanceList[i].id %>" class="btn-supprimer" id="buttonSupprimer<%= i %>" >Supprimer</button>
                                 
                             </div>
                         </div>
@@ -206,35 +206,32 @@
             element.addEventListener('click', () => {
                 const container = document.querySelector(element.dataset.detailTarget)
                 const background = document.querySelector(element.dataset.backgroundTarget);
-                openDetail(container, background);
+                openDetail(container);
             } )
         });
 
         closedetailButtons.forEach(element => {
             element.addEventListener('click', () => {
                 const container = element.closest('.detailContainer')
-                const background = document.querySelector(element.dataset.backgroundTarget);
-                closeDetail(container, background);
+                closeDetail(container);
             } )
         });
 
-        function openDetail(container, background){
+        function openDetail(container){
             if (container == null) return 
             container.classList.add('active')
-            background.classList.add('active')
         }
 
-        function closeDetail(container, background){
+        function closeDetail(container){
             if (container == null) return
             container.classList.remove('active')
-            background.classList.remove('active')
         }
 
 
         supprimerButtons.forEach
         ((button) => {
             button.addEventListener('click', () => {
-                
+                const courseId = button.dataset.course
                 const seanceId = button.dataset.index;
                 console.log(button.dataset.index)
                 console.log('------------------!from fetch seance delete', seanceId)
@@ -254,7 +251,12 @@
                         if (seanceElement) {
                             seanceElement.remove();
                         }
-                        console.log('Seance deleted successfully');
+                        if (courseId) {
+                            location.href = `/seanceList/${courseId}`;
+                        } else {
+                            console.log('Failed to retrieve courseId');
+                        }
+                        
                         } else {
                         console.log('Failed to delete seance');
                         }
@@ -274,7 +276,8 @@
         modifierButtons.forEach(button => {
             button.addEventListener('click', () => {
                 const seanceId = button.dataset.index;
-                
+                const courseId = button.dataset.course
+
                 const numeroSpan = document.getElementById("numero")
                 const dateSpan = document.getElementById("date");
                 const hdSpan = document.getElementById("hd");
@@ -333,6 +336,12 @@
                         hfSpan.innerHTML = `<span id="hf">${inputHf}</span>`;
                         objSpan.innerHTML = `<span id="obj">${inputObj}</span>`;
                         rmqSpan.innerHTML = `<span id="rmq">${inputRmq}</span>`;
+
+                            if (courseId) {
+                                location.href = `/seanceList/${courseId}`;
+                            } else {
+                                console.log('Failed to retrieve courseId');
+                            }
                         })
                         .catch(error => {
                         console.error(error);

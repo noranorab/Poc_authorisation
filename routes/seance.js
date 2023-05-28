@@ -118,7 +118,8 @@ router.post('/seance', async (req, res) => {
   try {
     const Seance = await insertSeance(seance.date, seance.hd, seance.hf, seance.obj, seance.rmq, courseId, seance.numero);
     console.log( Seance);
-    return res.render('seanceList', {seance, coursList, seanceList, courseId});
+    return res.redirect('/seanceList/' + courseId)
+    // return res.render('seanceList', {seance, coursList, seanceList, courseId});
   } catch (error) {
     console.error('An error occurred:', error);
 
