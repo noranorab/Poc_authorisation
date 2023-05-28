@@ -95,9 +95,17 @@
         
         <div class="form-element">
           <button type="submit" class="form-submit-button">Enregistrer</button>
-          <button class="form-delete-button">Supprimer</button>
         </div>
       </form>
+        <button class="form-delete-button" data = "<%= courseId %>" onclick="goBack(event)">Supprimer</button>
+        <script>
+          function goBack(event){
+            var courseId = event.target.getAttribute('data');  
+            location.href = 'seanceList/' + courseId
+          }
+        </script>
+
+      
     </div>
       
     

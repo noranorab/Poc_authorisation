@@ -17,6 +17,27 @@ const getProf = async (idProf) => {
 
 }
 
+const updateProf = async (idprofesseur, nom, prenom, role) =>{
+    try{
+        const prof = await Prof.findByPk(idprofesseur)
+
+        const updatedProf = {idprofesseur, nom, prenom, role}
+        console.log(updatedProf)
+
+        const result = await Prof.update(updatedProf, {
+            where : {
+                idprofesseur : idprofesseur
+            }
+        })
+        console.log(updatedProf)
+
+        return result
+    }catch(error){
+        throw error
+    }
+}
+
+
 // const getUserByName = async (name) => {
 //   const {rows} = await _pgPool.query('select * from users where nom = $1', [name])
 //   console.log('from getUserbyusername', rows[0])
@@ -61,5 +82,5 @@ const getProf = async (idProf) => {
 
 module.exports =
 {
-    getProf
+    getProf, updateProf
 }

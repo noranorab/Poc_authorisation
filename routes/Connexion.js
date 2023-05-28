@@ -25,16 +25,16 @@ router.post('/', async (req, res) => {
     const {username, password} = req.body
     if (username && password){
         const compte = await getCompte(username, password);
-        console.log(compte)
         const User = await getProf(compte[0].fk_compte_users_id);
-        console.log(User)
+       
         const prof = {
             id : User[0].idprofesseur,
             nom: User[0].nom,
             prenom: User[0].prenom,
             password : compte[0].password,
             username : compte[0].username,
-            role: User[0].role
+            role: User[0].role,
+            idcompte: compte[0].idcompte
 
         }
         const coursList = []
@@ -48,10 +48,9 @@ router.post('/', async (req, res) => {
             }
             coursList.push(cours)
         }
-        console.log(coursList)
         req.session.name = prof.username
         req.session.password = prof.password
-        console.log(req.session)
+        
         if(prof.role == 'admin'){
                     // anneeUniversitaire.lancerAnneeUniversitaire()
                     // const currentSchoolYear = anneeUniversitaire.obtenirAnneeUniversitaire();

@@ -15,7 +15,6 @@ router.get('/seanceList/:courseId', async (req, res) => {
     const compte = await getCompte(username, password);
     const User = await getProf(compte[0].fk_compte_users_id);
     const courseId = req.params.courseId;
-    console.log('---------courseId', courseId)
     const prof = {
             id : User[0].idprofesseur,
             nom: User[0].nom,
@@ -38,10 +37,10 @@ router.get('/seanceList/:courseId', async (req, res) => {
             coursList.push(cours)
     }
     const Seances = await getSeanceByCours(courseId)
-    console.log('-------------------------------', Seances)
     if (Seances.length > 0){
         for(let i = 0; i<Seances.length; i++){
             const seance = {
+                id : Seances[i].idseance,
                 date : Seances[i].date,
                 hd : Seances[i].heuredebut,
                 hf : Seances[i].heurefin,

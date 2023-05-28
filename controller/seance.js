@@ -22,6 +22,20 @@ const insertSeance = async (date, hd, hf, obj, rmq, idCours, numero ) => {
 
 }
 
+const updateSeance = async (id, {date, hd, hf, obj, rmq, numero}) => {
+    const updatedSeance = {date, hd, hf, obj, rmq, numero}
+    try{
+        const result = await Seance.update(updatedSeance, {
+            where : {
+                idseance : id
+            }
+        })
+        return result
+    }catch(error){
+        throw error
+    }
+}
+
 const getSeanceByCours = async (idcours) => {
     try{
         const seance = await Seance.findAll({
@@ -37,7 +51,29 @@ const getSeanceByCours = async (idcours) => {
 
 }
 
+const deleteSeanceById = async (id ) =>{
+    try{
+        const seance = await Seance.findByPk(id)
+        if (!seance) {
+            // Seance not found
+            return { success: false, message: 'Seance not found' };
+        }
+      
+          // Delete the seance
+        await seance.destroy();
+      
+          // Seance successfully deleted
+        return { success: true, message: 'Seance deleted successfully' };
+    } catch (error) {
+        console.error(error);
+          // Handle the error
+        return { success: false, message: 'Failed to delete seance' };
+    }
+} 
+
 module.exports = {
     insertSeance,
-    getSeanceByCours
+    getSeanceByCours,
+    updateSeance,
+    deleteSeanceById
 }

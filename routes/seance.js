@@ -4,7 +4,8 @@ const router = express.Router()
 const {getCompte} = require('../controller/compte')
 const {getProf} = require('../controller/prof')
 const {getCoursByIdProf} = require('../controller/cours')
-const { getSeanceByCours, insertSeance } = require('../controller/seance')
+const { getSeanceByCours, insertSeance, updateSeance, deleteSeanceById } = require('../controller/seance')
+const Seance = require('../model/Seance')
 
 
 
@@ -14,7 +15,6 @@ router.get('/seance/:courseId', async (req, res) => {
     const compte = await getCompte(username, password);
     const User = await getProf(compte[0].fk_compte_users_id);
     const courseId = req.params.courseId;
-    console.log('hello from seance', courseId)
     const prof = {
             id : User[0].idprofesseur,
             nom: User[0].nom,
@@ -37,7 +37,6 @@ router.get('/seance/:courseId', async (req, res) => {
     }
     const seanceList = []
     const Seances = await getSeanceByCours(courseId)
-    console.log(Seances)
     if (Seances.length > 0){
         for(let i = 0; i<Seances.length; i++){
             const seance = {
@@ -116,15 +115,10 @@ router.post('/seance', async (req, res) => {
     }else{
         console.log("pas de séance")
     }
-
-
-    
-    console.log('----------------------------', seance)
-
   try {
     const Seance = await insertSeance(seance.date, seance.hd, seance.hf, seance.obj, seance.rmq, courseId, seance.numero);
     console.log( Seance);
-    return res.render('seanceList', {Seance, coursList, seanceList, courseId});
+    return res.render('seanceList', {seance, coursList, seanceList, courseId});
   } catch (error) {
     console.error('An error occurred:', error);
 
@@ -134,12 +128,43 @@ router.post('/seance', async (req, res) => {
 
 })
 
-router.put('/', (req, res) => {
-    res.send({data: 'seance updated'})
+router.put('/seance/:seanceId', async (req, res) => {
+  console.log('Hello from put seance')
+
+    const {id, date, hd, hf, obj , rmq, numero} = req.body
+    try {
+        const rowCount = await updateSeance(id, {date, hd, hf, obj , rmq, numero})
+        if (rowCount[0] >0 ) {
+          // Profile update successful
+          res.status(200).json({ message: 'Seance updated successfully' });
+        } else {
+          // No rows affected (user not found or no changes made)
+          res.status(404).json({ error: 'Seance not found or no changes made' });
+        }
+      } catch (error) {
+        // Error occurred during profile update
+        res.status(500).json({ error: 'Failed to update seance' });
+    }
 })
 
-router.delete('/', (req, res) => {
-    res.send({data : "page deleted"})
+router.delete('/seance/:seanceId', async (req, res) => {
+    const seanceId = req.params.seanceId;
+
+  try {
+    // Find the seance by its ID
+    const seance = await deleteSeanceById(seanceId)
+    console.log('hello from delete', seance)
+    // Seance successfully deleted
+    if (seance.success) {
+      return res.json({ success: true, message: 'Seance deleted successfully' });
+    } else {
+      return res.json({ success: false, message: 'Failed to delete seance' });
+    }
+
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
 })
 
 

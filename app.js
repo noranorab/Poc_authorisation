@@ -54,7 +54,7 @@ app.use('/', seanceRoute)
 app.use('/' ,seanceListRoute)
 app.use('/adminDashboard', adminRoute)
 app.use('/profDashboard', profRoute)
-// app.use('/comptes', compteRoute)
+app.use('/comptes', compteRoute)
 // app.use('/ajouterFiliere', ajouterFiliereRoute)
 
 let currentSchoolYear = null;

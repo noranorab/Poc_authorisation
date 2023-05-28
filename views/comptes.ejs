@@ -57,26 +57,26 @@
     </style>
 </head>
 <body>
-    <%- include('./sideBar') %>
+    <%- include('./sideBarProf') %>
     <div class="container">
         <h1>Comptes</h1>
         <h5 class="profil">Votre Profil</h5>
         <div class="ulElements">
             <ul id="profileList">
-                <li class="item1">Nom : <span id="nom"><%= user.nom%></span></li>
-                <li class="item1">Prénom : <span id="prenom"><%= user.prenom %></span></li>
-                <li class="item1">Role : <span id="role"><%= user.role %></span></li>
-                <li class="item1">Mot de passe : <span id="password"><%= user.password %></span></li>
-                <li class="item1">Username : <span id="username"><%= user.username %></span></li>
-                <button onclick="modifyProfile('<%= user.id %>')">Modify your profile</button>
-                <button id='save' onclick="saveProfile()">Save</button>
+                <li class="item1">Nom : <span id="nom"><%= prof.nom%></span></li>
+                <li class="item1">Prénom : <span id="prenom"><%= prof.prenom %></span></li>
+                <li class="item1">Role : <span id="role"><%= prof.role %></span></li>
+                <li class="item1">Mot de passe : <span id="password"><%= prof.password %></span></li>
+                <li class="item1">Username : <span id="username"><%= prof.username %></span></li>
+                <button onclick="modifyProfile('<%= prof.id %>', '<%= prof.idcompte %>')">Modify your profile</button>
+                <button id='save'>Save</button>
             </ul>
         </div>
        
         <div class="content">
             <ul>
                 <script>
-                    async function modifyProfile(userId) {
+                    async function modifyProfile(userId, compteId) {
  
                         // Prompt the user for new values
                         const nomSpan = document.getElementById("nom");
@@ -102,45 +102,35 @@
                         document.getElementById('save').addEventListener("click", () => 
                         {
 
+                            console.log(userId, compteId)
+
 
                             // Make a POST request to /updateProfile endpoint
                             fetch('/comptes',  {
-                                method: 'POST',
+                                method: 'Post',
                                 headers: {
                                     'Content-Type': 'application/json'
                                 },
+                                
                                 body: JSON.stringify({
                                     id: userId,
                                     nom: nom.value,
                                     prenom: prenom.value,
                                     role: role.value,
                                     password: password.value,
-                                    username: username.value
+                                    username: username.value,
+                                    idcompte: compteId
                                 })
 
                             })
                             .then(response => response.text())
                             .then(() => { 
-                                    // const nom = document.getElementById("inputNom");
-                                    // const prenom = document.getElementById("inputPrenom");
-                                    // const role = document.getElementById("inputRole");
-                                    // const password = document.getElementById("inputPassword");
-                                    // const username = document.getElementById("inputUsername");
 
                                     const inputNom = nom.value;
                                     const inputPrenom = prenom.value;
                                     const inputRole = role.value;
                                     const inputPassword = password.value;
                                     const inputUsername = username.value;
-
-                                    // nom.innerHTML = `<span id="nom">${inputNom}</span>`;
-                                    // prenom.innerHTML = `<span id="nom">${inputPrenom}</span>`;
-                                    // role.innerHTML = `<span id="nom">${inputRole}</span>`;
-                                    // password.innerHTML = `<span id="nom">${inputPassword}</span>`;
-                                    // username.innerHTML = `<span id="nom">${inputUsername}</span>`;const nom = document.getElementById("inputNom");
-
-
-
 
                                     nomSpan.innerHTML = `<span id="nom">${inputNom}</span>`;
                                     prenomSpan.innerHTML = `<span id="nom">${inputPrenom}</span>`;
@@ -149,21 +139,15 @@
                                     usernameSpan.innerHTML = `<span id="nom">${inputUsername}</span>`;
                             })
                             .catch(error => {
-                            console.error(error);
+                                console.error(error);
                             // Optionally, show an error message to the user
                             });
                         })
                     }
                 </script>
-                <li class="item" onclick="manageUsersPage()">Manage users</li>
-                <script>
-                    function manageUsersPage() {
-                        location.href = "/manage"
-                    }
-                </script>
+                
             </ul>
         </div>
-        <button>Launch a new School year</button>
 
     </div>
     
