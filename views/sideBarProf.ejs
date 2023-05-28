@@ -124,7 +124,12 @@
     <div class="sideBar">
         <h5 class="bienvenu">Bienvenue</h5>
         <ul>
-            <li name="first" class="item2" id="item2">Dashboard</li>
+            <li name="first" class="item2" id="item2" onclick="afficherDashboard()">Dashboard</li>
+            <script>
+                function afficherDashboard(){
+                    location.href = 'profDashboard'
+                }
+            </script>
             <div  class='secondUl'onclick="dropdown(event)">
                 <li class="dropdown-header">Cours</li>
                 <% for (var i = 0; i < coursList.length; i++) { %>

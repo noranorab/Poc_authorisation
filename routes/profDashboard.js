@@ -5,7 +5,7 @@ const router = express.Router()
 
 
 router.get('/',(req, res)=> {
-    console.log('hello form dashboard')
+    return res.render('profDashboard')
     // const user = users.find((user) => user.username == req.session.name);
     // anneeUniversitaire.lancerAnneeUniversitaire('2022/2023', '1')
     // const currentSchoolYear = anneeUniversitaire.obtenirAnneeUniversitaire();
