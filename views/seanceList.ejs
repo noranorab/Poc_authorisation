@@ -163,17 +163,20 @@
                                 <button  data-background-target="#background<%= i %>" class="close-btn">&times;</button>
                             </div>
                             <div class="detailContainerBody">
-                                <button data-index="<%= i %>" class="btn-save" >Save</button>
                                 <li class="desc">Le <span id="date"> <%= seanceList[i].date %> </span></li>
                                 <li class="desc">De <span id="hd"> <%= seanceList[i].hd %> </span>A <span id="hf"> <%= seanceList[i].hf %> </span> </li>
                                 <li class="desc">Objectifs :<span id="obj">  <%= seanceList[i].obj %> </span></li>
                                 <li class="desc">Remarques :<span id="rmq">  <%= seanceList[i].rmq %> </span></li>
                             </div>
-                            <div class="detailContainerFooter">
-                                <button  data-course = '<%= courseId %> ' data-index="<%= seanceList[i].id %>" class="btn-modifier" id="button<%= i %>">Modifier</button>
-                                <button  data-index="<%= seanceList[i].id %>" class="btn-supprimer" id="buttonSupprimer<%= i %>" >Supprimer</button>
-                                
-                            </div>
+                            <% if (prof.role !== 'CF'){ %>
+                                <div class="detailContainerFooter">
+                                    <button  data-course = '<%= courseId %> ' data-index="<%= seanceList[i].id %>" class="btn-modifier" id="button<%= i %>">Modifier</button>
+                                    <button  data-index="<%= seanceList[i].id %>" class="btn-supprimer" id="buttonSupprimer<%= i %>" >Supprimer</button>
+                                    <button data-index="<%= i %>" class="btn-save" >Save</button>
+                                </div>    
+                            <% }else{ %>
+                                <div></div>
+                            <% } %>
                         </div>
                     </div>
                     <div class="background" id="background<%= i %>"></div>
