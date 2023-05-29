@@ -39,7 +39,6 @@ router.post('/', async (req, res) => {
         }
         const coursList = []
         const Cours = await getCoursByIdProf(prof.id)
-        const seanceList = []
         for (let i=0; i<Cours.length; i++){
             const cours  = {
                 id: Cours[i].idcours,
@@ -48,6 +47,34 @@ router.post('/', async (req, res) => {
             }
             coursList.push(cours)
         }
+        const horaireParCours  = []
+
+
+        for (let i = 0 ; i<coursList.length; i++){
+            const seances_i = await getSeanceByCours(coursList[i].id)
+            const length_i = seances_i.length
+            let totalHours = 0
+            for (let j = 0; j< length_i; j++){
+                const finTime = new Date(`1970-01-01T${seances_i[j].heurefin}`);
+                const debutTime = new Date(`1970-01-01T${seances_i[j].heuredebut}`);
+                const debutTimestamp = debutTime.getTime();
+                const finTimestamp = finTime.getTime();
+
+                // Calculate the time difference in milliseconds
+                const timeDifference = Math.abs(finTimestamp - debutTimestamp);
+
+                // Convert the time difference to hours
+                const hours = Math.floor(timeDifference / (1000 * 60 * 60));
+                totalHours = totalHours + hours
+            }
+            horaireParCours.push({
+                coursid : coursList[i].id,
+                nomcours: coursList[i].nom,
+                horaire: totalHours
+            })
+        }
+        
+        console.log(horaireParCours)
         req.session.name = prof.username
         req.session.password = prof.password
         
@@ -61,7 +88,7 @@ router.post('/', async (req, res) => {
         }else if(prof.role == 'CM'){
                 return res.render('profDashboard', {prof })
         }else if(prof.role == 'Prof'){
-                return res.render('profDashboard', { prof, coursList})
+                return res.render('profDashboard', { prof, coursList, horaireParCours })
         }else{
                 return res.render({data : 'this is  page'})
         }

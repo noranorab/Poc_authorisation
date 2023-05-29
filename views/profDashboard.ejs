@@ -4,15 +4,81 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .progress-bar {
+            width: 50%;
+            height: 20px;
+            background-color: #f2f2f2;
+            border-radius: 5px;
+        }
+
+        .progress {
+            height: 100%;
+            background-color: #ff6600;
+            border-radius: 5px;
+            width: 1px;
+            transition: width 0.5s ease-in-out;
+        }
+        section{
+            width: calc(100% - 200px);
+            margin-left: 270px;
+        }
+    </style>
 </head>
 <body>
-    <%- include('sideBarProf', {coursList : coursList}) %>
+    <%- include('sideBarProf') %>
     <% if (prof){ %>
         <div class="hello">
             <h1>Hello <%= prof.username %> </h1>
         </div>
+        <section>
+            <h5>Avancement des cours</h5>
+            <% if(coursList.length > 0) { %>
+                <% for (let i = 0; i < coursList.length ; i++){ %>
+                    <div class="cours">
+                        <h6><%= coursList[i].nom %></h6>
+                        <div class="progress-bar" id="<%= i %>">
+                            <div class="progress" data-horaire="<%= horaireParCours[i].horaire %>" id="bar<%= i %>"></div>
+                        </div>
+                    </div>
+
+                <% } %>
+
+            <% }else{ %>
+                <h5>Aucun cours n'est ajouté</h5>
+            <% } %>
+        </section>
     <% }else{ %>
         <% console.log("page not found") %>
     <% } %>
+
+    <script>
+        // Calculate the progress percentage based on hd, hf, and total hours
+            function calculateProgress(horaire, totalHours) {
+                const progress = (horaire / totalHours) * 100;
+                return progress.toFixed(2);
+            }
+            // Get the progress bar element
+            const progressBarList = document.querySelectorAll('.progress');
+
+            // Example values (replace with your actual values)
+
+            // Calculate the progress percentage
+            const progressPercentage = calculateProgress(hd, hf, totalHours);
+
+            progressBarList.forEach(
+                bar => {
+                    const horaire = bar.dataset.horaire
+
+                    console.log(horaire)
+                    const progressPercentage = calculateProgress(horaire, 210);
+                    bar.style.width = `${progressPercentage}%`
+                }
+            )
+
+            
+
+    </script>
 </body>
+
 </html>

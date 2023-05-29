@@ -190,6 +190,8 @@
     </div>
 
     <script>
+
+
         function ajouterSeance(courseId){
             location.href = '/seance/' + courseId
         }
@@ -337,11 +339,16 @@
                         objSpan.innerHTML = `<span id="obj">${inputObj}</span>`;
                         rmqSpan.innerHTML = `<span id="rmq">${inputRmq}</span>`;
 
-                            if (courseId) {
+                        if (courseId) {
                                 location.href = `/seanceList/${courseId}`;
-                            } else {
+                        } else {
                                 console.log('Failed to retrieve courseId');
-                            }
+                        }
+
+                        
+                        
+
+                            
                         })
                         .catch(error => {
                         console.error(error);
@@ -352,6 +359,7 @@
                 })
             })
         })
+
 
         
 
