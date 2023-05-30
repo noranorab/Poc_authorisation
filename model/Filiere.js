@@ -1,8 +1,8 @@
 const DataTypes = require('sequelize').DataTypes;
 const sequelize = require('./sequelize');
 
-const Filiere = sequelize.define('Filiere', {
-    idFiliere: {
+const Filiere = sequelize.define('filiere', {
+    idfiliere: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
         primaryKey: true
@@ -17,7 +17,7 @@ const Filiere = sequelize.define('Filiere', {
         type: DataTypes.INTEGER,
         references:{
             model:"Prof",
-            key:"idProfesseur"
+            key:"idprofesseur"
         }
     }
     },
@@ -27,9 +27,8 @@ const Filiere = sequelize.define('Filiere', {
 
 )
 
-module.exports= {
-    Filiere
-}
+module.exports= Filiere
+
 
 
 

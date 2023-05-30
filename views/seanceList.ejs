@@ -168,14 +168,16 @@
                                 <li class="desc">Objectifs :<span id="obj">  <%= seanceList[i].obj %> </span></li>
                                 <li class="desc">Remarques :<span id="rmq">  <%= seanceList[i].rmq %> </span></li>
                             </div>
-                            <% if (prof.role !== 'CF'){ %>
+                            
+                            <% if (coursListParFiliere.reduce((cours) => cours.idcours == seanceList[i].idcours )){ %>
+                                <div class="detailContainerFooter">
+                                </div>    
+                            <% }else{ %>
                                 <div class="detailContainerFooter">
                                     <button  data-course = '<%= courseId %> ' data-index="<%= seanceList[i].id %>" class="btn-modifier" id="button<%= i %>">Modifier</button>
                                     <button  data-index="<%= seanceList[i].id %>" class="btn-supprimer" id="buttonSupprimer<%= i %>" >Supprimer</button>
                                     <button data-index="<%= i %>" class="btn-save" >Save</button>
-                                </div>    
-                            <% }else{ %>
-                                <div></div>
+                                </div>                               
                             <% } %>
                         </div>
                     </div>
@@ -187,12 +189,13 @@
             <h5>Aucune séance n'est ajoutée</h5>
         <% } %>
           
-        
+
         <button onclick="ajouterSeance('<%= courseId %>')">Ajouter</button>
 
     </div>
 
     <script>
+
 
 
         function ajouterSeance(courseId){

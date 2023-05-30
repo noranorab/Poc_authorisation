@@ -2,8 +2,11 @@ const express = require('express')
 const router = express.Router()
 const {getCompte} = require('../controller/compte')
 const {getProf} = require('../controller/prof')
-const {getCoursByIdProf} = require('../controller/cours')
 const { getSeanceByCours } = require('../controller/seance')
+const { getCoursByIdProf, getCoursParModule } = require('../controller/cours')
+const {getFiliereByIdProf} = require('../controller/filiere')
+const { getModuleByIdFiliere } = require('../controller/module')
+
 
 // const anneeUniversitaire = require('../views/js/anneeUniversitaire')
 
@@ -37,6 +40,39 @@ router.get('/', async (req, res)=> {
             coursList.push(cours)
     }
 
+    var Filiere = null;
+
+    var coursListParFiliere = []
+
+    console.log('--------------------', prof)
+    if (prof.role == 'CF'){
+            Filiere = await getFiliereByIdProf(prof.id)
+            console.log(Filiere)
+            const filiere = {
+                id : Filiere[0].idfiliere,
+                nom :  Filiere[0].nom,
+                description :  Filiere[0].description,
+                iduser :  Filiere[0].fk_filiere_users_id
+            }
+            console.log('----------------', filiere)
+            const Modules = await getModuleByIdFiliere(filiere.id)
+            console.log('-----modules--------', Modules)
+
+    
+            for (var i =0; i<Modules.length; i++){
+                let cours = await getCoursParModule(Modules[i].idmodule)
+                let coursModule = {
+                    idcours : cours[0].idcours,
+                    nom : cours[0].nom,
+                    description : cours[0].description,
+                    iduser : cours[0].fk_cours_users_id,
+                    idmodule : cours[0].fk_cours_modules_id
+                } 
+                console.log('--------cours--------', coursModule)
+                coursListParFiliere.push(coursModule)
+            }   
+    } 
+    
     const horaireParCours  = []
 
     for (let i = 0 ; i<coursList.length; i++){
@@ -62,12 +98,36 @@ router.get('/', async (req, res)=> {
             nomcours: coursList[i].nom,
             horaire: totalHours
         })
+
+    }
+
+    var coursTeaching = []
+    var isTeaching = false
+
+    for (let i = 0; i < coursListParFiliere.length; i++) {
+        const course = coursListParFiliere[i];
+        
+
+
+        // Check if the idProf matches the iduser of the course
+        if (course.iduser === prof.id) {
+            isTeaching = true
+            coursTeaching.push(isTeaching )
+            coursTeaching.push(course.idcours )
+           
+
+            // The idProf teaches this course
+            return coursTeaching
+        }else{
+            isTeaching = false
+            coursTeaching.push(isTeaching)
+        }
     }
     console.log('------------------------',horaireParCours)
 
     
     
-    return res.render('profDashboard', {coursList, horaireParCours, prof})
+    return res.render('profDashboard', {coursTeaching, Filiere, coursListParFiliere, coursList, horaireParCours, prof})
     // const user = users.find((user) => user.username == req.session.name);
     // anneeUniversitaire.lancerAnneeUniversitaire('2022/2023', '1')
     // const currentSchoolYear = anneeUniversitaire.obtenirAnneeUniversitaire();

@@ -3,8 +3,10 @@ const express = require('express')
 const router = express.Router()
 const {getCompte} = require('../controller/compte')
 const {getProf} = require('../controller/prof')
-const {getCoursByIdProf} = require('../controller/cours')
+const { getCoursByIdProf, getCoursParModule } = require('../controller/cours')
 const { getSeanceByCours } = require('../controller/seance')
+const {getFiliereByIdProf} = require('../controller/filiere')
+const { getModuleByIdFiliere } = require('../controller/module')
 
 
 /* routes */
@@ -53,12 +55,57 @@ router.get('/seanceList/:courseId', async (req, res) => {
             console.log('----------------------------', seance)
         }        
         
+        const coursList = []
+        const Cours = await getCoursByIdProf(prof.id)
+        for (let i=0; i<Cours.length; i++){
+            const cours  = {
+                id: Cours[i].idcours,
+                nom: Cours[i].nom,
+                description: Cours[i].description,
+            }
+            coursList.push(cours)
+        }
     }else{
         console.log("pas de séance")
     }
 
+    var Filiere = null;
+
+    const coursListParFiliere = []
+    console.log('--------------------', prof)
+    if (prof.role == 'CF'){
+            Filiere = await getFiliereByIdProf(prof.id)
+            console.log(Filiere)
+            const filiere = {
+                id : Filiere[0].idfiliere,
+                nom :  Filiere[0].nom,
+                description :  Filiere[0].description,
+                iduser :  Filiere[0].fk_filiere_users_id
+            }
+            console.log('----------------', filiere)
+            const Modules = await getModuleByIdFiliere(filiere.id)
+            console.log('-----modules--------', Modules)
+
+    
+            for (var i =0; i<Modules.length; i++){
+                let cours = await getCoursParModule(Modules[i].idmodule)
+                let coursModule = {
+                    idcours : cours[0].idcours,
+                    nom : cours[0].nom,
+                    description : cours[0].description,
+                    iduser : cours[0].fk_cours_users_id,
+                    idmodule : cours[0].fk_cours_modules_id
+                } 
+                console.log('--------cours--------', coursModule)
+                coursListParFiliere.push(coursModule)
+            }
+               
+    }
+
+
+
     console.log('hello from get seanceList', seanceList)
-    return res.render('seanceList', {courseId, coursList, seanceList})
+    return res.render('seanceList', { prof, Filiere, coursListParFiliere, courseId, coursList, seanceList})
 
     // Assuming you have a Sequelize model for 'seance'
     // const seanceList = await getSeanceByCours(courseId)

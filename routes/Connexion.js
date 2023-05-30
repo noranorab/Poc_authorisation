@@ -5,15 +5,11 @@ const router = express.Router()
 const anneeUniversitaire = require('../views/js/anneeUniversitaire')
 const {getCompte} = require('../controller/compte')
 const {getProf} = require('../controller/prof')
-const { getCoursByIdProf } = require('../controller/cours')
+const { getCoursByIdProf, getCoursParModule } = require('../controller/cours')
 const { getSeanceByCours } = require('../controller/seance')
+const {getFiliereByIdProf} = require('../controller/filiere')
+const { getModuleByIdFiliere } = require('../controller/module')
 
-// function getUser(req, res, next){
-//     const userId = req.body.id
-//     if (userId){
-//         req.user = users.find(user => user.id === userId)
-//     }
-// }
 
 router.get('/',(req,res) => {
     console.log('helo from get COnnexion')
@@ -37,6 +33,40 @@ router.post('/', async (req, res) => {
             idcompte: compte[0].idcompte
 
         }
+        
+        var Filiere = null;
+
+        const coursListParFiliere = []
+        console.log('--------------------', prof)
+        if (prof.role == 'CF'){
+            Filiere = await getFiliereByIdProf(prof.id)
+            console.log(Filiere)
+            const filiere = {
+                id : Filiere[0].idfiliere,
+                nom :  Filiere[0].nom,
+                description :  Filiere[0].description,
+                iduser :  Filiere[0].fk_filiere_users_id
+            }
+            console.log('----------------', filiere)
+            const Modules = await getModuleByIdFiliere(filiere.id)
+            console.log('-----modules--------', Modules)
+
+    
+            for (var i =0; i<Modules.length; i++){
+                let cours = await getCoursParModule(Modules[i].idmodule)
+                let coursModule = {
+                    idcours : cours[0].idcours,
+                    nom : cours[0].nom,
+                    description : cours[0].description,
+                    iduser : cours[0].fk_cours_users_id,
+                    idmodule : cours[0].fk_cours_modules_id
+                } 
+                console.log('--------cours--------', coursModule)
+                coursListParFiliere.push(coursModule)
+            }    
+        }
+
+        console.log('---------coursListParfiliere------', coursListParFiliere)
         const coursList = []
         const Cours = await getCoursByIdProf(prof.id)
         for (let i=0; i<Cours.length; i++){
@@ -73,6 +103,26 @@ router.post('/', async (req, res) => {
                 horaire: totalHours
             })
         }
+
+        var coursTeaching = []
+        var isTeaching = false
+
+        for (let i = 0; i < coursListParFiliere.length; i++) {
+            const course = coursListParFiliere[i];
+            // Check if the idProf matches the iduser of the course
+            if (course.iduser === prof.id) {
+                isTeaching = true
+                coursTeaching.push(isTeaching )
+                coursTeaching.push(course.idcours )
+               
+    
+                // The idProf teaches this course
+                return coursTeaching
+            }else{
+                isTeaching = false
+                coursTeaching.push(isTeaching)
+            }
+        }
         
         console.log(horaireParCours)
         req.session.name = prof.username
@@ -84,11 +134,11 @@ router.post('/', async (req, res) => {
                 return res.render('adminDashboard', { prof})
 
         }else if(prof.role == 'CF'){
-                return res.render('profDashboard', { prof, coursList, seanceList})
+                return res.render('profDashboard', { coursTeaching, Filiere, prof, coursList, horaireParCours, coursListParFiliere})
         }else if(prof.role == 'CM'){
                 return res.render('profDashboard', {prof })
         }else if(prof.role == 'Prof'){
-                return res.render('profDashboard', { prof, coursList, horaireParCours })
+                return res.render('profDashboard', { coursTeaching, Filiere, prof, coursList, horaireParCours, coursListParFiliere })
         }else{
                 return res.render({data : 'this is  page'})
         }

@@ -130,12 +130,22 @@
                     location.href = '/profDashboard'
                 }
             </script>
-            <div  class='secondUl'onclick="dropdown(event)">
+             <div  class='secondUl'onclick="dropdown(event)">
                 <li class="dropdown-header">Cours</li>
                 <% for (var i = 0; i < coursList.length; i++) { %>
                     <li class="elt" onclick="eltClick(event)" data="<%= coursList[i].id %>"><%= coursList[i].nom %></li>
                 <% } %>
             </div>
+            <% if (prof.role == 'CF') { %>
+                <div  class='secondUl'onclick="dropdown(event)">
+                    <li class="dropdown-header">Filière <%= Filiere.nom %></li>
+                    <% for (var i = 0; i < coursListParFiliere.length; i++) { %>
+                        <li class="elt" onclick="eltClick(event)" data="<%= coursListParFiliere[i].idcours %>"><%= coursListParFiliere[i].nom %></li>
+                    <% } %>
+                </div>
+            <% } %>
+           
+            
 
             <script>
                 function eltClick(event){

@@ -6,13 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
         .progress-bar {
-            width: 50%;
-            height: 20px;
+                
+            display: flex;
+            align-items: center; /* Align items vertically in the center */
+            width: 25%;
+            height: 15px;
             background-color: #f2f2f2;
             border-radius: 5px;
         }
 
         .progress {
+            position: relative;
             height: 100%;
             background-color: #ff6600;
             border-radius: 5px;
@@ -22,6 +26,19 @@
         section{
             width: calc(100% - 200px);
             margin-left: 270px;
+        }
+
+        .progress-text{
+            position: absolute;
+            top: 50%;
+            left: 22%;
+            transform: translate(-50%, -50%);
+            white-space: nowrap;
+            color: white;
+            font-size: 12px;
+            font-family: 'Poppins';
+            font-weight: bold;
+            margin-bottom: 2px;
         }
     </style>
 </head>
@@ -38,7 +55,9 @@
                     <div class="cours">
                         <h6><%= coursList[i].nom %></h6>
                         <div class="progress-bar" id="<%= i %>">
-                            <div class="progress" data-horaire="<%= horaireParCours[i].horaire %>" id="bar<%= i %>"></div>
+                            <div class="progress" data-horaire="<%= horaireParCours[i].horaire %>" id="bar<%= i %>">
+                                <span class="progress-text"></span>
+                            </div>
                         </div>
                     </div>
 
@@ -64,7 +83,6 @@
             // Example values (replace with your actual values)
 
             // Calculate the progress percentage
-            const progressPercentage = calculateProgress(hd, hf, totalHours);
 
             progressBarList.forEach(
                 bar => {
@@ -72,6 +90,8 @@
 
                     console.log(horaire)
                     const progressPercentage = calculateProgress(horaire, 210);
+                    const progressText = bar.querySelector('.progress-text');
+                    progressText.textContent = `${progressPercentage}%`;
                     bar.style.width = `${progressPercentage}%`
                 }
             )

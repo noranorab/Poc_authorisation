@@ -1,8 +1,8 @@
 const DataTypes = require('sequelize').DataTypes;
 const sequelize = require('./sequelize');
 
-const Module = sequelize.define('Module', {
-    idModule: {
+const Module = sequelize.define('modules', {
+    idmodule: {
         type: DataTypes.INTEGER,
         autoIncrement: true,
         primaryKey: true
@@ -17,7 +17,14 @@ const Module = sequelize.define('Module', {
         type: DataTypes.INTEGER,
         references:{
             model:"Prof",
-            key:"idProfesseur"
+            key:"idprofesseur"
+        }
+    },
+    idfiliere: {       //cooridnateur de modules
+        type: DataTypes.INTEGER,
+        references:{
+            model:"Filiere",
+            key:"idfiliere"
         }
     }
     },
@@ -27,6 +34,4 @@ const Module = sequelize.define('Module', {
 
 )
 
-module.exports= {
-    Module
-}
+module.exports= Module
