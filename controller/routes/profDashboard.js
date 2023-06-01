@@ -1,11 +1,11 @@
 const express = require('express')
 const router = express.Router()
-const {getCompte} = require('../controller/compte')
-const {getProf} = require('../controller/prof')
-const { getSeanceByCours } = require('../controller/seance')
-const { getCoursByIdProf, getCoursParModule } = require('../controller/cours')
-const {getFiliereByIdProf} = require('../controller/filiere')
-const { getModuleByIdFiliere } = require('../controller/module')
+const {getCompte} = require('../compte')
+const {getProf} = require('../prof')
+const { getSeanceByCours } = require('../seance')
+const { getCoursByIdProf, getCoursParModule } = require('../cours')
+const {getFiliereByIdProf} = require('../filiere')
+const { getModuleByIdFiliere } = require('../module')
 
 
 // const anneeUniversitaire = require('../views/js/anneeUniversitaire')

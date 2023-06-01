@@ -1,12 +1,12 @@
 const { render } = require('ejs')
 const express = require('express')
 const router = express.Router()
-const {getCompte} = require('../controller/compte')
-const {getProf} = require('../controller/prof')
-const { getCoursByIdProf, getCoursParModule } = require('../controller/cours')
-const { getSeanceByCours } = require('../controller/seance')
-const {getFiliereByIdProf} = require('../controller/filiere')
-const { getModuleByIdFiliere } = require('../controller/module')
+const {getCompte} = require('../compte')
+const {getProf} = require('../prof')
+const { getCoursByIdProf, getCoursParModule } = require('../cours')
+const { getSeanceByCours } = require('../seance')
+const {getFiliereByIdProf} = require('../filiere')
+const { getModuleByIdFiliere } = require('../module')
 
 
 /* routes */

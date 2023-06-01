@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script>
         // function myFunction(event) {
         //     const liElement = event.target;
@@ -21,107 +22,316 @@
         //     }
         //     } 
     </script>
-    <style>
-        body{
-            font-family: 'Poppins' ;
-        }
-        h1, h5{
-            font-family: 'Poppins' ;
-        }
-        ul {
-          list-style-type: none;
-          margin: 0;
-          padding: 0;
-        }
-        .sideBar{
-            position: fixed;
-            background: rgb(13, 13, 53);
-            width: 200px;
-            padding: 20px;
-            left: 0;
-            top: 0;
-            bottom: 0;
-        }
-        .bienvenu{
-            margin-bottom: 10px;
-            color: aqua;
-            font-size: 20px;
-        }
-        .item2 {
-            margin-bottom: 10px;
-            cursor: pointer;
-            color: white;
-        }
-        #item2{
-            margin-top: 50px;
-        }
+<style>
+    @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap");
+    *,
+    *:after,
+    *:before {
+    box-sizing: border-box;
+    }
 
-        .item2:hover {
-            color: #fff;
-            background-color: #537299;
-        }
-        .hello, .avancement{
-            width: calc(100% - 200px);
-            padding: 20px;
-            margin-left: 250px;
-        }
-        .avancement{
-            margin-top: 100px;
-        }
-        .secondeUl {
-        list-style-type: none;
-        cursor: pointer;
-        }
-        .dropdown-header{
-            color: #fff;
-            margin-bottom: 10px;
+    body {
+    font-family: "Inter", sans-serif;
+    line-height: 1.5;
+    }
 
-        }
-        .dropdown-header:hover{
-            color: #fff;
-            background-color: #537299;
-
-        }
-
-        .dropdown-header::after {
-
-        display: inline-block;
-        margin-left: 5px;
-        transition: transform 0.3s ease;
-        }
+    input,
+    button,
+    select,
+    textarea {
+    font: inherit;
+    }
 
 
-        .elt {
-        display: none;
-        color: white;
-        margin-left: 10px;
-        }
-        .elt:hover {
-        color: white;
-        margin-left: 10px;
-        background: rgb(48, 48, 100);
-        padding-left: 10px;
-        }
+    .window {
+        position: fixed;
+        width: 300px;
+        left: 0;
+        top: 0;
+        bottom: 0;
 
-        .open {
+    
+    }
+
+
+    .window-panel {
+    background-color: #19194a;
+    padding: 2rem;
+    }
+
+
+    .window-panel:after {
+        content: "";
+        width: calc(100% + 4rem);
+        height: 300px;
+        margin-left: -2rem;
+        bottom: -2rem;
+        background-image: linear-gradient(to top, #19194a 0%, transparent 100%);
         display: block;
-        margin-bottom: 5px;
-        }
-        .seancePage{
-            width: calc(100% - 200px);
-            margin-left: 270px;
-        }
-        .addButton{
-            width: calc(100% - 200px);
-            margin-left: 270px;
+        z-index: 100;
+}
+   
+    
 
-        }
-    </style>
+
+    .section-title {
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    color: #565656;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    margin-bottom: 1rem;
+    }
+    .window-panel .section-title {
+    color: #8c8ca5;
+    }
+
+    .search {
+    margin-bottom: 1.5rem;
+    }
+
+    
+
+    .tree {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    padding-left: 1rem;
+    position: relative;
+    }
+    .tree:before {
+    display: block;
+    content: "";
+    position: absolute;
+    width: 2px;
+    height: calc(100% - 2em);
+    background-color: #535377;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    }
+    .tree--sub:after {
+    position: absolute;
+    content: "";
+    display: block;
+    height: 2px;
+    width: 1rem;
+    background-color: #535377;
+    top: 1.25em;
+    left: -1rem;
+    }
+
+    .tree-branch-action {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    }
+    .tree-branch-action button {
+    opacity: 0;
+    transition: 0.15s ease;
+    background-color: #535377;
+    color: #fff;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.75em;
+    width: 1rem;
+    height: 1rem;
+    border: 0;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: 0.5rem;
+    }
+    .tree-branch-action button:hover {
+    background-color: #c6c6d2;
+    color: #19194a;
+    }
+    .tree-branch-action:hover button {
+    opacity: 1;
+    }
+
+    .tree-branch-link {
+    color: inherit;
+    color: #c6c6d2;
+    text-decoration: none;
+    position: relative;
+    display: block;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+    transition: 0.15s ease;
+    }
+    .tree-branch-link:before {
+    position: absolute;
+    content: "";
+    display: block;
+    height: 10px;
+    width: 10px;
+    border-radius: 50%;
+    background-color: #19194a;
+    border: 2px solid #535377;
+    top: 1em;
+    left: calc(-1rem - 4px);
+    z-index: 1;
+    transition: 0.15s ease;
+    transform-origin: 50% 50%;
+    }
+    .tree-branch-link.active, .tree-branch-link:hover {
+    color: #fff;
+    }
+    .tree-branch-link.active:before, .tree-branch-link:hover:before {
+    border-color: #fff;
+    transform: scale(1.25);
+    }
+    .tree-branch-link--404:before {
+    border-radius: 0;
+    transform: rotate(45deg);
+    }
+    .tree-branch-link--404:hover:before {
+    transform: scale(1.25) rotate(45deg);
+    }
+    .tree-branch-link.active {
+    font-weight: 500;
+    }
+    .tree-branch-link.active:before {
+    background-color: #fff;
+    }
+
+
+    .button {
+    display: inline-flex;
+    align-items: center;
+    border: 0;
+    padding: 0.375em 0.75em;
+    border-radius: 4px;
+    background-color: transparent;
+    cursor: pointer;
+    border-bottom: 1px solid;
+    margin-right: 0.5rem;
+    transition: 0.25s ease;
+    font-weight: 500;
+    }
+    .logout{
+        font-family: "Inter", sans-serif;
+        color: grey;
+        font-weight: bold;
+
+    }
+    .fa-sign-out{
+        margin-top: 120px;
+    }
+    .fa-sign-out:hover, .logout:hover{
+        color: white;
+        transition: 0.5s ease;
+    }
+    
+    
+  
+
+</style>
 </head>
 <body>
     <div class="seancePage" id="seanceListContainer">
     </div>
-    <div class="sideBar">
+    <div class="window">
+        <div class="window-panel">
+            <h2 class="section-title">
+                Bienvenue
+            </h2>
+            
+            <ul class="tree">
+                <li class="tree-branch">
+                    <div class="tree-branch-action">
+                        <a onclick="afficherDashboard()" class="tree-branch-link active">Home</a>
+                        <script>
+                            function afficherDashboard(){
+                                location.href = '/profDashboard'
+                            }
+                        </script>
+                    </div>
+                </li>
+                <li class="tree-branch">
+                    <div class="tree-branch-action">
+                        <a  class="tree-branch-link">Cours</a>
+                        <button class="tree-branch-button">+</button>
+                    </div>
+                    <ul class="tree tree--sub">
+                        <li class="tree-branch tree-branch--sub">
+                            <div class="tree-branch-action">
+                                <% for (var i = 0; i < coursList.length; i++) { %>
+                                    <a class="tree-branch-link tree-branch-link--sub" onclick="eltClick(event)" data="<%= coursList[i].id %>"><%= coursList[i].nom %></a>
+                                    <button class="tree-branch-button">+</button>
+                                <% } %>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+                <% if (prof.role == 'CF') { %>
+                    <li class="tree-branch">
+                        <div class="tree-branch-action">
+                            <a class="tree-branch-link ">Filière <%= Filiere.nom %></a>
+                            <button class="tree-branch-button">+</button>
+                        </div>
+                        <ul class="tree tree--sub">
+                            <li class="tree-branch tree-branch--sub">
+                                <% for (var i = 0; i < coursListParFiliere.length; i++) { %>
+                                    <div class="tree-branch-action">
+                                        <a onclick="eltClick(event)" data="<%= coursListParFiliere[i].idcours %>" class="tree-branch-link tree-branch-link--sub">
+                                            <%= coursListParFiliere[i].nom %>
+                                        </a>
+                                        <button class="tree-branch-button">+</button>
+                                    </div>
+                                <% } %>
+                            </li>
+                        </ul>
+                    </li>
+                <% } %>
+                
+            <script>
+                function eltClick(event){
+                    var courseId = event.target.getAttribute('data');  
+                    location.href = '/seanceList/' + courseId
+                }
+                
+                
+                function dropdown(event) {
+                    var target = event.target;
+                    if (target.tagName === 'LI' && target.classList.contains('dropdown-header')) {
+                        target.classList.toggle('open');
+                        var dropdownItems = target.parentNode.getElementsByTagName('li');
+                        for (var i = 1; i < dropdownItems.length; i++) {
+                            dropdownItems[i].classList.toggle('open');
+                        }
+                    }
+                }
+                function ajouterSeance(){
+                    location.href = "/seance"
+                }
+            </script>
+                <li class="tree-branch">
+                    <div class="tree-branch-action">
+                        <a class="tree-branch-link" onclick="afficherProfil()">Profile</a>
+                        <button class="tree-branch-button">+</button>
+                    </div>
+                    <script>
+                        function afficherProfil(){
+                            location.href = '/comptes'
+                        }
+                    </script>
+                </li>
+            </ul>
+            <h2 class="section-title">
+                <i class="fa fa-sign-out" aria-hidden="true" onclick="disconnect()"><span class="logout">Log out</span> </i>
+            </h2>
+            <script>
+                function disconnect(){
+                    location.href='/Deconnexion'
+                }
+            </script>
+        </div>
+        
+    </div>
+   
+    <!-- <div class="sideBar">
         <h5 class="bienvenu">Bienvenue</h5>
         <ul>
             <li name="first" class="item2" id="item2" onclick="afficherDashboard()">Dashboard</li>
@@ -175,7 +385,7 @@
                 }
             </script>
         </ul>
-    </div>
+    </div> -->
     
 </body>
 </html>

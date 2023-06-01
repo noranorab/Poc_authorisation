@@ -9,16 +9,14 @@ const sequelize = require('./model/sequelize')
 
 const bodyParser = require('body-parser');
 
-const connRoute = require('./routes/Connexion')
-const homeRoute = require('./routes/Home')
-const moduleRoute = require('./routes/Modules')
-const coursRoute = require('./routes/Cours')
-const seanceListRoute = require('./routes/seanceList')
-const compteRoute = require('./routes/Comptes')
-const ajouterFiliereRoute = require('./routes/AjouterFiliere')
-const profRoute = require('./routes/profDashboard')
-const seanceRoute = require('./routes/seance')
-
+const connRoute = require('./controller/routes/Connexion')
+const homeRoute = require('./controller/routes/Home')
+const coursRoute = require('./controller/routes/Cours')
+const seanceListRoute = require('./controller/routes/seanceList')
+const compteRoute = require('./controller/routes/Comptes')
+const profRoute = require('./controller/routes/profDashboard')
+const seanceRoute = require('./controller/routes/seance')
+const deconnexionRoute = require('./controller/routes/Deconnexion')
 
 // const setVariables = require('./routes/setVariables')
 app.set('view engine', 'ejs');
@@ -53,6 +51,7 @@ app.use('/', seanceRoute)
 app.use('/' ,seanceListRoute)
 app.use('/profDashboard', profRoute)
 app.use('/comptes', compteRoute)
+app.use('/Deconnexion', deconnexionRoute)
 // app.use('/ajouterFiliere', ajouterFiliereRoute)
 
 let currentSchoolYear = null;

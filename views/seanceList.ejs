@@ -7,7 +7,13 @@
     <style>
         .container{
             width: calc(100% - 200px);
-            margin-left: 270px;
+            margin-left: 300px;
+            margin-top: 30px;
+        }
+        .seanceItem{
+            font-size: 15px;
+            font-weight: 500;
+            color: rgb(255, 255, 255);
         }
 
         .seanceList{
@@ -16,15 +22,17 @@
         }
 
         .item{
-            border: 0.5px grey solid;
             border-radius: 10px;
             margin-bottom: 10px;
-            max-width: 65%;
+            max-width: 85%;
             display: flex;
             flex-direction: row;
             padding-top: 10px;
             padding-bottom: 10px;
             padding-left: 10px;
+            list-style: none;
+            box-shadow: 2px 1px 2px 0 rgb(0, 0, 0, 0.5);
+            background-color: rgb(0, 41, 95);
 
         }
         .seance{
@@ -34,30 +42,53 @@
         }
 
         .detail{
-            margin-left: 500px;
-            font-family: 'Poppins';
-            background-color: rgb(255, 255, 255);
-            color: rgb(0, 0, 0);
+            margin-left: 700px;
             border-radius: 15px;
+            font-size: 12px;
+            font-weight: 500;
+            color: rgb(255, 255, 255);
+            background: none;
+            border: none;
+            box-shadow: 1px 2px 2px 0 grey;
             padding: 10px;
             font-size: 14px;
             font-weight: 400;
-            border: rgb(94, 94, 94) 0.5px solid;
+            
+            
+        }
+        
+        
+        .detail:hover{
+            margin-left: 700px;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: 300;
+            color: rgb(87, 87, 87);
+            background: white;
+            transition: 0.5s ease;
+            border: none;
+            box-shadow: 1px 2px 2px 0 grey;
+            padding: 10px;
+            font-size: 14px;
+            font-weight: 400;
+            
+            
         }
         .detailContainer{
             position: fixed;
-            top:50%;
-            left: 50%;
+            top:30%;
+            left: 60%;
             transform: translate(-50%, -50%) scale(0);
             transition: 200mx ease-in-out;
-            border: 0.5px solid grey;
+            border: none;
             border-radius: 10px;
             z-index: 10;
             background-color: white;
-            width: 500px;
-            max-width: 70%;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+            width: 920px;
+            height: 50vh;
+            box-shadow: 2px 0px 2px 0 rgb(0, 0, 0, 0.5);
 
+            
         }
 
         .detailContainerHeader{
@@ -78,8 +109,9 @@
             border: none;
             outline: none;
             background: none;
-            font-size: 1.25;
-            font-weight: bold;
+            font-size: 1.2;
+            font-weight: normal;
+            color: rgb(0, 41, 95);
         }
 
         .detailContainerBody{
@@ -106,14 +138,16 @@
 
         .desc{
             margin-bottom: 10px;
+            font-size: 15px;
         }
         span{
             font-weight: bold;
             font-size: 12px;
         }
         .detailContainerFooter{
-            margin-left: 170px;
-            margin-bottom: 20px;
+            margin-left: 200px;
+            margin-top: 20px;
+            margin-bottom: 10px;
             display: flex;
             align-items: center;
         }
@@ -128,16 +162,55 @@
         .btn-modifier{
             background-color: rgb(83, 83, 177);
             width: 100px;
+            font-size: 12px;
 
         }
 
         .btn-supprimer{
             background-color: rgb(255, 44, 44);
+            font-size: 12px;
+        }
+        .btn-save{
+            font-size: 12px;
+            background-color: rgb(122, 122, 122);
+            width: 100px;
+        }
+
+        .btn-modifier:hover, .btn-supprimer:hover, .btn-save:hover{
+            background-color: rgb(255, 255, 255);
+            color: rgb(82, 82, 82);
+            transition: 0.5s ease;
+            box-shadow: 2px 1px 5px 0 rgb(0, 0, 0, 0.5);
+
         }
         .close-btn{
             font-size: 25px;
         }
+        .avancement{
+            margin-left: 45px;
+            width: 80%;
+            font-weight: 400;
+            font-size: 15px;
+            color: rgb(0, 41, 95);
+            border-bottom: 1px solid rgb(190, 190, 190) ;
 
+        }
+        .ajouter{
+            margin-left: 45px;
+            font-size: 12px;
+        }
+        .span-title{
+            font-weight: 300;
+            font-size: 15px;
+            color: rgb(0, 41, 95);
+        }
+
+        .noSeance{
+            margin-left: 45px;
+        }
+       
+
+        
 
 
     </style>
@@ -145,11 +218,11 @@
 <body>
     <%- include('sideBarProf') %>
     <div class="container">
-        <h1>Séances</h1>
+        <h2 class="avancement">Séances</h2>
         <% console.log(seanceList) %>
         <% if (seanceList.length > 0) { %>
             <div class="seances">
-                <ul class="seanceList">
+                <ol class="seanceList">
                 <% for (let i = 0; i < seanceList.length; i++) { %>
                     <div class="item" id="<%= seanceList[i].id %>">
                         <div class="seance">
@@ -159,7 +232,7 @@
                         </div>
                         <div class="detailContainer" id="container<%= i %>">
                             <div class="detailContainerHeader">
-                                <h5>Séance <span id="numero"><%= seanceList[i].numero %></span></h5>
+                                <span class="span-title">Séance <span id="numero"><%= seanceList[i].numero %></span></span>
                                 <button  data-background-target="#background<%= i %>" class="close-btn">&times;</button>
                             </div>
                             <div class="detailContainerBody">
@@ -183,14 +256,14 @@
                     </div>
                     <div class="background" id="background<%= i %>"></div>
                 <% } %>
-                </ul>
+                </ol>
             </div>
         <% } else { %>
-            <h5>Aucune séance n'est ajoutée</h5>
+            <h5 class="noSeance">Aucune séance n'est ajoutée</h5>
         <% } %>
           
 
-        <button onclick="ajouterSeance('<%= courseId %>')">Ajouter</button>
+        <button class='ajouter' onclick="ajouterSeance('<%= courseId %>')">Ajouter</button>
 
     </div>
 

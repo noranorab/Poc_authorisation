@@ -7,15 +7,25 @@
     <style>
         .container{
             width: calc(100% - 200px);
-            margin-left: 270px;
+            margin-left: 300px;
         }
-        h1{
-          margin: 50px;
+       h3{
+        margin-left: 45px;
+        font-weight: 400;
+            font-size: 15px;
+            color: rgb(0, 41, 95);
+            border-bottom: 1px solid rgb(173, 173, 173);
+          width: 80%;
 
-        }
+       }
         #seanceForm{
           padding: 20px;
           margin-left: 30px;
+        }
+        label{
+          font-weight: 300;
+            font-size: 15px;
+            color: rgb(0, 41, 95);
         }
 
         .form-element{
@@ -24,6 +34,7 @@
         .form-submit-button {
           padding: 10px 20px;
           background-color: #4CAF50;
+          font-size: 12px;
           color: white;
           border: none;
           border-radius: 4px;
@@ -51,13 +62,30 @@
           border: 1px solid #ccc;
           border-radius: 4px;
         }
+        
         .form-delete-button{
+          
           padding: 10px 20px;
           background-color: #ff4444;
           color: white;
+          font-size: 12px;
           border: none;
           border-radius: 4px;
           cursor: pointer;
+        }
+        .form-delete-button:hover, .form-submit-button:hover{
+          box-shadow: 3px 2px 3px 0 rgb(54, 54, 54, 0.5) ;
+          padding: 10px 20px;
+          background-color: #ffffff;
+          color: rgb(54, 54, 54);
+          font-size: 12px;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+        }
+        .retour{
+            margin-left: 45px;
+            font-size: 12px;
         }
     </style>
 </head>
@@ -65,7 +93,7 @@
   <%- include('sideBarProf') %>
     
     <div class="container">
-      <h1>Séance</h1>
+      <h3>Séance</h3>
       <form id="seanceForm" method="POST" action="/seance">
         <div class="form-element">
           <label for="numero">Numéro de la séance:</label>

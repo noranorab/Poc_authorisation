@@ -90,10 +90,26 @@
             margin-top: 20px;
             width: 70%;
         }
+        .form-field2 {
+            height: 46px;
+            padding: 0 16px;
+            border: 2px solid #ddd;
+            border-radius: 4px;
+            font-family: 'Rubik', sans-serif;
+            outline: 0;
+            transition: .2s;
+            margin-top: 20px;
+            width: 70%;
+        }
         
-        .form-field:focus {
+        .form-field:focus, .form-field2:focus {
             border-color: #0f7ef1;
         }
+
+        .link-password{
+            color: blue
+        }
+
         
         .form>button {
             padding: 12px 10px;
@@ -146,6 +162,13 @@
             -webkit-animation-delay: 2.5s;
             animation-delay: 2.5s;
         }
+
+        #buttonReturn{
+            margin-top: 20px;
+        }
+        .form2{
+            display: none;
+        }
         
         @keyframes move {
             0% {
@@ -186,14 +209,93 @@
                 <form action="/Connexion" method="POST">
                     <input class='form-field animation a3' name="username" type="text" placeholder="Username" required/>
                     <input class='form-field animation a4' name="password" type="password" placeholder="Password" required/>
-                    <p class="animation a5"><a href="#">Forgot Password?</a></p>
+                    <p class="animation a5"><a class="link-password">Forgot Password?</a></p>
                     <input class="animation a6" type="submit" value="Connect">
+                </form>
+            </div>
+            <div class="form2">
+                <form >
+                    <input class='form-field2 animation a3' id ='username' name="username" type="text" placeholder="Username" required/>
+                    <input class='form-field2 animation a3' id ='newPass' name="new_password" type="password" placeholder="New Password" required/>
+                    <input class='form-field2 animation a4' id ='confirmNewPass' name="confirm_password" type="password" placeholder="Confirm Password" required />
+                    <button class="animation a6" id='buttonReturn' >Change Password</button>
+                    <button class="animation a6"  onclick="returnToConnect()">Back</button>
+
                 </form>
             </div>
         </div>
         
         <div class="right-section"></div>
     </div>
+    <script>
+        var linkPassword = document.querySelector('.link-password')
+        var form = document.querySelector('.form')
+        var form2 = document.querySelector('.form2')
+        var UsernameInput = document.querySelector('.form2 input[name="username"]');
+        var newPasswordInput = document.querySelector('.form2 input[name="new_password"]');
+        var confirmNewPasswordInput = document.querySelector('.form2 input[name="confirm_password"]');
+        var errorText = document.createElement('p');
+        errorText.textContent = 'No matching Passwords';
+        errorText.style.color = 'red';
+        errorText.style.display = 'none';
+        form2.appendChild(errorText);
+        var formFields = document.querySelectorAll('.form-field2')
+
+        linkPassword.addEventListener('click', () => {
+            form.style.display = 'none'
+            form2.style.display = 'block'
+        })
+
+        function returnToConnect(){
+                form.style.display = 'block'
+                form2.style.display = 'none'                
+        }
+            
+
+        document.querySelector('#buttonReturn').addEventListener('click', (event) => {
+            event.preventDefault(); // Prevent form submission
+            var username = UsernameInput.value.trim();
+            var newPass = newPasswordInput.value.trim();
+            var confirmNewPass = confirmNewPasswordInput.value.trim();
+
+            if (username === '' || newPass === '' || confirmNewPass === '') {
+                form2.querySelectorAll('.form-field2').forEach(elt => {
+                    elt.style.border = '1px solid red';
+                    elt.focus()
+                });
+            } else if (newPass !== confirmNewPass) {
+                alert('Passwords do not match');
+                return;
+                 // Show the error text
+            }else{
+                fetch('/Comptes', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    username: username,
+                    new_password: newPass
+                })
+                })
+                .then(response => {
+                    if (response.ok) {
+                        alert('Password changed successfully'); // Display success message
+                        // Perform actions after successful password change, if needed
+                    } else {
+                        alert('Failed to change password'); // Display error message
+                        // Perform actions when the password change fails, if needed
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error); // Log any errors to the console
+                    alert('An error occurred while changing the password'); // Display error message
+                    // Perform actions when an error occurs, if needed
+                });
+                    }
+            });
+        
+    </script>
    
 </body>
 </html>

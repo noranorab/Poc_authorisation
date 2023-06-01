@@ -2,13 +2,13 @@ const { closeDelimiter } = require('ejs')
 const express = require('express')
 const router = express.Router()
 // const {users, ROLE}= require('../data')
-const anneeUniversitaire = require('../views/js/anneeUniversitaire')
-const {getCompte} = require('../controller/compte')
-const {getProf} = require('../controller/prof')
-const { getCoursByIdProf, getCoursParModule } = require('../controller/cours')
-const { getSeanceByCours } = require('../controller/seance')
-const {getFiliereByIdProf} = require('../controller/filiere')
-const { getModuleByIdFiliere } = require('../controller/module')
+const anneeUniversitaire = require('../../views/js/anneeUniversitaire')
+const {getCompte, updatePassword, getCompteByUsername} = require('../compte')
+const {getProf} = require('../prof')
+const { getCoursByIdProf, getCoursParModule } = require('../cours')
+const { getSeanceByCours } = require('../seance')
+const {getFiliereByIdProf} = require('../filiere')
+const { getModuleByIdFiliere } = require('../module')
 
 
 router.get('/',(req,res) => {
@@ -143,13 +143,15 @@ router.post('/', async (req, res) => {
                 return res.render({data : 'this is  page'})
         }
     }
+
+   
     console.log('hello from here ')
     res.redirect('connexion')
 
 })
 
-router.put('/', (req, res) => {
-    res.send({data: 'page updated'})
+router.put('/', async (req, res) => {
+    
 })
 
 router.delete('/', (req, res) => {

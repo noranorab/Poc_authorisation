@@ -5,11 +5,30 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
+        @import url("https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+        :root {
+            --c-gray-900: #000000;
+            --c-gray-800: #1f1f1f;
+            --c-gray-700: #2e2e2e;
+            --c-gray-600: #313131;
+            --c-gray-500: #969593;
+            --c-gray-400: #a6a6a6;
+            --c-gray-300: #bdbbb7;
+            --c-gray-200: #f1f1f1;
+            --c-gray-100: #ffffff;
+            --c-green-500: #45ffbc;
+            --c-olive-500: #e3ffa8;
+            --c-white: var(--c-gray-100);
+            --c-text-primary: var(--c-gray-100);
+            --c-text-secondary: var(--c-gray-200);
+            --c-text-tertiary: var(--c-gray-500);
+            }
+
         .progress-bar {
                 
             display: flex;
             align-items: center; /* Align items vertically in the center */
-            width: 25%;
+            width: 50%;
             height: 15px;
             background-color: #f2f2f2;
             border-radius: 5px;
@@ -18,54 +37,157 @@
         .progress {
             position: relative;
             height: 100%;
-            background-color: #ff6600;
+            background-color: #00ffff;
             border-radius: 5px;
             width: 1px;
             transition: width 0.5s ease-in-out;
         }
         section{
             width: calc(100% - 200px);
-            margin-left: 270px;
+            margin-left: 330px;
+            font-family: "Be Vietnam Pro", sans-serif;
         }
 
         .progress-text{
             position: absolute;
             top: 50%;
-            left: 22%;
+            left: 25px;
             transform: translate(-50%, -50%);
             white-space: nowrap;
-            color: white;
+            color: rgb(42, 25, 73);
             font-size: 12px;
             font-family: 'Poppins';
             font-weight: bold;
             margin-bottom: 2px;
         }
+
+        .span {
+        position: relative;
+        color: rgb(0, 41, 95);
+        padding: 0;
+        margin: 0;
+        line-height: 30pt;
+        }
+
+        .span::after {
+        position: absolute;
+        bottom: 1px;
+        left: 0;
+        width: 100%;
+        height: 15px;
+        background: rgb(118, 166, 255);
+        content: "";
+        z-index: -1;
+        }
+        h1{
+            font-weight: 500;
+            font-size: 20px;
+            color: rgb(0, 41, 95);
+            font-family: 'Poppins';
+        }
+        .hello{
+            border-bottom: 1px solid rgb(190, 190, 190) ;
+            width: 80%;
+        }
+        .service-section > h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1.25rem;
+            }
+
+        .service-section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .service-section-header > * + * {
+            margin-left: 0rem;
+        }
+        @media (max-width: 1000px) {
+            .service-section-header {
+                    display: none;
+            }
+        }
+        
+        .tile {
+        padding: 1rem;
+        border-radius: 8px;
+        background-color: rgb(255, 255, 255);
+        color: rgb(42, 25, 73);
+        min-height: 50px;
+        width: 900px;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        transition: 0.25s ease;
+        box-shadow: 1px 1px 2px 1.5px rgba(78, 78, 78, 0.3);
+        margin-bottom: 10px;
+        margin-left: 0;
+
+        }
+
+        .avancement{
+            
+            font-weight: 400;
+            font-size: 15px;
+            color: rgb(0, 41, 95);
+        }
+        .titre{
+            font-size: 15px;
+            font-weight: 300;
+            color: rgb(42, 25, 73);
+        }
+        .tile-header{
+            margin-bottom: 5px;
+        }
+        .service-section-header{
+            display: flex;
+            flex-direction: column;
+            position: absolute;
+            
+
+        }
+        
+
+
     </style>
 </head>
 <body>
     <%- include('sideBarProf') %>
     <% if (prof){ %>
-        <div class="hello">
-            <h1>Hello <%= prof.username %> </h1>
-        </div>
+        
         <section>
-            <h5>Avancement des cours</h5>
-            <% if(coursList.length > 0) { %>
-                <% for (let i = 0; i < coursList.length ; i++){ %>
-                    <div class="cours">
-                        <h6><%= coursList[i].nom %></h6>
-                        <div class="progress-bar" id="<%= i %>">
-                            <div class="progress" data-horaire="<%= horaireParCours[i].horaire %>" id="bar<%= i %>">
-                                <span class="progress-text"></span>
-                            </div>
-                        </div>
-                    </div>
-
-                <% } %>
-
-            <% }else{ %>
-                <h5>Aucun cours n'est ajouté</h5>
-            <% } %>
+            <div class="hello">
+                <h1><span class="span">Hello</span> <%= prof.username %> </h1>
+            </div>
+            <div class="service-section">
+                
+                <h5 class="avancement">Avancement des cours</h5>
+                <div class="service-section-header">
+                    <% if(coursList.length > 0) { %>
+                        <% for (let i = 0; i < coursList.length ; i++){ %>
+                            <article>
+                                <div class="tile">
+                                    <div class="tile-header">
+                                        <span class="titre"><%= coursList[i].nom %></span>
+                                    </div>
+                                    <div class="tile-body">
+                                        <div class="progress-bar" id="<%= i %>">
+                                            <div class="progress" data-horaire="<%= horaireParCours[i].horaire %>" id="bar<%= i %>">
+                                                <span class="progress-text"></span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </article>
+        
+                        <% } %>
+        
+                    <% }else{ %>
+                        <h5>Aucun cours n'est ajouté</h5>
+                    <% } %>  
+                </div>
+                  
+            </div>
         </section>
     <% }else{ %>
         <% console.log("page not found") %>

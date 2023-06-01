@@ -1,11 +1,11 @@
 const { render } = require('ejs')
 const express = require('express')
 const router = express.Router()
-const {getCompte, updateCompte} = require('../controller/compte')
-const {getProf, updateProf} = require('../controller/prof')
-const { getCoursByIdProf, getCoursParModule } = require('../controller/cours')
-const {getFiliereByIdProf} = require('../controller/filiere')
-const { getModuleByIdFiliere } = require('../controller/module')
+const {getCompte, updateCompte, getCompteByUsername, updatePassword} = require('../compte')
+const {getProf, updateProf} = require('../prof')
+const { getCoursByIdProf, getCoursParModule } = require('../cours')
+const {getFiliereByIdProf} = require('../filiere')
+const { getModuleByIdFiliere } = require('../module')
 
 
 
@@ -97,6 +97,25 @@ router.post('/', async (req, res) => {
 })
 
 router.put('/', async (req, res) => {
+    console.log('hello from put methofd')
+    try {
+            const {username, new_password} = req.body
+            const compte = await getCompteByUsername(username);
+            console.log(compte)
+            var rowCount = await updateCompte(compte[0].idcompte, username ,new_password, compte[0].id);
+        
+            if (rowCount[0] >0 ) {
+            // Profile update successful
+                res.status(200).json({ message: 'mdp updated successfully' });
+            } else {
+            // No rows affected (user not found or no changes made)
+            res.status(404).json({ error: 'mdp not found or no changes made' });
+            }
+        
+      } catch (error) {
+        // Error occurred during profile update
+        res.status(500).json({ error: 'Failed to update mdp' });
+    }
     
 })
 
