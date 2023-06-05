@@ -52,49 +52,6 @@ app.use('/' ,seanceListRoute)
 app.use('/profDashboard', profRoute)
 app.use('/comptes', compteRoute)
 app.use('/Deconnexion', deconnexionRoute)
-// app.use('/ajouterFiliere', ajouterFiliereRoute)
-
-let currentSchoolYear = null;
-
-// POST route handler to launch a new school year
-// app.post('/lancer-annee', (req, res) => {
-//   const user = users.find((user) => user.username == req.session.name);
-//   const { year, semester } = req.body;
-//   const schoolYear = {
-//      year: year,
-//      semester: semester,
-//    };
-//   anneeUniversitaire.lancerAnneeUniversitaire(schoolYear.year, schoolYear.semester)
-//   currentSchoolYear = anneeUniversitaire.obtenirAnneeUniversitaire();
-//   //reset all information concerning l'avancement des cours
-//   res.render('adminDashboard', {currentSchoolYear, user})
-// });
-
-// app.use(setUser)
-
-// app.use('/api', usersRoute);
-
-
-
-
-// function setUser(req, res, next) {
-//     const userId = req.body.userId
-//     if(userId){
-//         req.user= users.find(user => user.id === userId)
-//     }
-//     next()
-// }
-function setFilieres(req, res, next){
-    const userId = req.body.id
-    if (userId){
-        req.filiere = filieres.find(filiere => filiere.userId === userId)
-    }
-    next()
-}
-
-app.use(setFilieres)
-
-
 
 
 
