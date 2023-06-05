@@ -1,8 +1,8 @@
 const Sequelize = require('sequelize').Sequelize;
-const sequelize = new Sequelize('follow_up','postgres','postgres',{
+const sequelize = new Sequelize('','','',{
     host:'localhost',
     dialect : 'postgres',
-    port:5432,
+    port:,
     define: {
         timestamps: false
     }
